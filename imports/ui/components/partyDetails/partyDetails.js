@@ -52,6 +52,16 @@ class PartyDetails {
   });
  }
 
+//need to update
+  canInvite() {
+    // if (!this.party) {
+    //   return false;
+    // }
+    //
+    // return !this.party.public && this.party.owner === Meteor.userId();
+    return true;
+  }
+
 }
 
 const name = 'partyDetails';

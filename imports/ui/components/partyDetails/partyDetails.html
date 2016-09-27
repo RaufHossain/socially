@@ -20,9 +20,16 @@
       <div>
         <md-button ng-click="partyDetails.save()" class="md-primary md-raised">Save</md-button>
       </div>
+
+      <div>
+        <md-button ui-sref="parties" class="md-primary md-raised">Back</md-button>
+      </div>
     </form>
 
+
   </div>
+
+
 
   <party-uninvited flex party="partyDetails.party" ng-show="partyDetails.canInvite()"></party-uninvited>
 </div>
