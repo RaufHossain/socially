@@ -13,8 +13,10 @@ import { name as Password } from '../password/password';
 const name = 'auth';
 
 class Auth {
-  constructor($scope, $reactive) {
+  constructor($scope, $reactive, $state) {
     'ngInject';
+
+    this.$state = $state;
 
     $reactive(this).attach($scope);
 
@@ -30,6 +32,7 @@ class Auth {
 
   logout() {
     Accounts.logout();
+    this.$state.go('login');
   }
 }
 

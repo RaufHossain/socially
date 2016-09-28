@@ -16,7 +16,8 @@ class Register {
 
     this.credentials = {
       email: '',
-      password: ''
+      password: '',
+      username: ''
     };
 
     this.error = '';

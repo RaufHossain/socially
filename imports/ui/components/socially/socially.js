@@ -54,7 +54,7 @@ function config($locationProvider, $urlRouterProvider, $mdIconProvider) {
    .iconSet('image',
      iconPath + 'svg-sprite-image.svg');
 
-  $urlRouterProvider.otherwise('/parties');
+  $urlRouterProvider.otherwise('/login');
 }
 
 
@@ -64,7 +64,7 @@ function run($rootScope, $state) {
  $rootScope.$on('$stateChangeError',
    (event, toState, toParams, fromState, fromParams, error) => {
      if (error === 'AUTH_REQUIRED') {
-       $state.go('parties');
+       $state.go('login');
      }
    }
  );

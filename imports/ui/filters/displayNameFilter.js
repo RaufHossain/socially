@@ -7,8 +7,8 @@ function DisplayNameFilter(user) {
     return '';
   }
 
-  if (user.profile && user.profile.name) {
-    return user.profile.name;
+  if (user.username) {
+    return user.username;
   }
 
   if (user.emails) {
