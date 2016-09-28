@@ -6,6 +6,7 @@ import utilsPagination from 'angular-utils-pagination';
 import { Counts } from 'meteor/tmeasday:publish-counts';
 
 import template from './partiesList.html';
+import paginationTemplate from './customPagination.tpl.html';
 import { name as PartyAdd } from '../partyAdd/partyAdd';
 import { name as PartyRemove } from '../partyRemove/partyRemove';
 import { name as PartyAddButton } from '../partyAddButton/partyAddButton';
@@ -84,8 +85,11 @@ export default angular.module(name, [
   controller: PartiesList
 }).config(config);
 
-function config($stateProvider) {
+function config($stateProvider, paginationTemplateProvider) {
   'ngInject';
+
+  paginationTemplateProvider.setString('<div class="my-page-links">...</div>');
+  paginationTemplateProvider.setString(paginationTemplate);
   $stateProvider
     .state('parties', {
       url: '/parties',
