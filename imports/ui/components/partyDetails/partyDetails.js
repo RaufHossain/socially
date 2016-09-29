@@ -41,7 +41,8 @@ class PartyDetails {
      $set: {
        name: this.party.name,
        description: this.party.description,
-       public: this.party.public
+       public: this.party.public,
+       credits: this.party.credits
      },
    }, (error) => {
     if (error) {

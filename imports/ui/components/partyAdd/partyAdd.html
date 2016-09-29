@@ -1,19 +1,25 @@
 <div layout="column" layout-padding>
   <md-input-container>
     <label>
-      Party Name:
+      Course Name:
     </label>
-    <input type="text" ng-model="partyAdd.party.name"/>
+    <input type="text" ng-model="partyAdd.party.name" required/>
   </md-input-container>
   <md-input-container>
     <label>
       Description:
     </label>
-    <input type="text" ng-model="partyAdd.party.description"/>
+    <input type="text" ng-model="partyAdd.party.description" required/>
+  </md-input-container>
+  <md-input-container>
+    <label>
+      Number Of Credits:
+    </label>
+    <input type="number" ng-model="partyAdd.party.credits" required/>
   </md-input-container>
   <div flex>
     <md-checkbox ng-model="partyAdd.party.public" aria-label="Public Party?">
-      Public Party?
+      Public Course?
     </md-checkbox>
   </div>
   <div flex>

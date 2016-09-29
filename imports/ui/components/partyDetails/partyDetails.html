@@ -2,7 +2,7 @@
   <div layout="column" layout-gt-sm="row"  layout-padding>
     <form flex="50" layout="column">
       <md-input-container>
-        <label>Party name</label>
+        <label>Course name</label>
         <input ng-model="partyDetails.party.name" ng-disabled="!partyDetails.isLoggedIn">
       </md-input-container>
 
@@ -11,9 +11,14 @@
         <input ng-model="partyDetails.party.description" ng-disabled="!partyDetails.isLoggedIn">
       </md-input-container>
 
+      <md-input-container>
+        <label>Number of Credits</label>
+        <input ng-model="partyDetails.party.credits" ng-disabled="!partyDetails.isLoggedIn">
+      </md-input-container>
+
       <div>
         <md-checkbox ng-model="partyDetails.party.public" ng-disabled="!partyDetails.isLoggedIn" aria-label="Public Party?">
-          Public Party?
+          Public Course?
         </md-checkbox>
       </div>
 

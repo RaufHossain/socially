@@ -5,6 +5,7 @@ import utilsPagination from 'angular-utils-pagination';
 
 import { Counts } from 'meteor/tmeasday:publish-counts';
 
+
 import template from './partiesList.html';
 import paginationTemplate from './customPagination.tpl.html';
 import { name as PartyAdd } from '../partyAdd/partyAdd';
@@ -34,6 +35,9 @@ class PartiesList {
       sort: this.getReactively('sort')
     },  this.getReactively('searchText')
     ]);
+    this.subscribe('users');
+
+
 
     this.helpers({
       parties() {
@@ -65,6 +69,7 @@ class PartiesList {
     this.sort = sort;
   }
 
+
 }
 
 const name = 'partiesList';
@@ -93,6 +98,15 @@ function config($stateProvider, paginationTemplateProvider) {
   $stateProvider
     .state('parties', {
       url: '/parties',
-      template: '<parties-list></parties-list>'
+      template: '<parties-list></parties-list>',
+      resolve: {
+        currentUser($q) {
+          if (Meteor.userId() === null) {
+            return $q.reject('AUTH_REQUIRED');
+          } else {
+            return $q.resolve();
+          }
+        }
+      }
     });
 }

@@ -54,7 +54,12 @@ function config($locationProvider, $urlRouterProvider, $mdIconProvider) {
    .iconSet('image',
      iconPath + 'svg-sprite-image.svg');
 
-  $urlRouterProvider.otherwise('/login');
+  if(!!Meteor.userId()){
+    $urlRouterProvider.otherwise('/parties');
+  }else{
+    $urlRouterProvider.otherwise('/login');
+  }
+
 }
 
 

@@ -33,6 +33,11 @@
           </label>
           <input type="password" ng-model="register.credentials.password" placeholder="password" aria-label="password" required/>
         </md-input-container>
+        <div>
+          <md-checkbox ng-model="register.credentials.profile.student" aria-label="Student?">
+            Student?
+          </md-checkbox>
+        </div>
         <div layout="row" layout-align="end center">
           <md-button class="md-raised md-primary" ng-click="register.register()" aria-label="login" ng-disabled="register.registerForm.$invalid()">Register</md-button>
         </div>

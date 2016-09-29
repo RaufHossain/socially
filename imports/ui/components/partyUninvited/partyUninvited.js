@@ -14,7 +14,6 @@ class PartyUninvited {
     $scope.viewModel(this);
     $scope.subscribe('users');
 
-
     this.helpers({
       users() {
         return Meteor.users.find({});

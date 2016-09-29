@@ -29,6 +29,7 @@
               <party-remove party="party" ng-show="partiesList.isOwner(party)"></party-remove>
             </span>
             <span class="md-subhead">{{party.description}}</span>
+            <span class="md-subhead">Number Of Credits: {{party.credits}}</span>
           </md-card-title-text>
         </md-card-title>
         <md-card-content>
@@ -38,6 +39,9 @@
 
 
       </md-card>
+      <div layout="row" layout-align="end center">
+        <md-button class="md-raised md-primary" ng-click="partiesList.test()" aria-label="test">Test</md-button>
+      </div>
       <dir-pagination-controls on-page-change="partiesList.pageChanged(newPageNumber)"></dir-pagination-controls>
     </div>
 

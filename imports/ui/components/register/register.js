@@ -17,7 +17,10 @@ class Register {
     this.credentials = {
       email: '',
       password: '',
-      username: ''
+      username: '',
+      profile: {
+        student: 'false'
+      }
     };
 
     this.error = '';
