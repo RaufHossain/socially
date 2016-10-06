@@ -20,6 +20,18 @@ class PartyUninvited {
       }
     });
   }
+
+ invite(user) {
+   Meteor.call('invite', this.party._id, user._id,
+     (error) => {
+       if (error) {
+         console.log('Oops, unable to invite!');
+       } else {
+         console.log('Invited!');
+       }
+     }
+   );
+ }
 }
 
 const name = 'partyUninvited';
