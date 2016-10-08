@@ -1,8 +1,8 @@
 import angular from 'angular';
 import angularMeteor from 'angular-meteor';
+import { Meteor } from 'meteor/meteor';
 import uiRouter from 'angular-ui-router';
 
-import { Accounts } from 'meteor/accounts-base';
 
 import template from './register.html';
 
@@ -27,7 +27,9 @@ class Register {
   }
 
   register() {
-    Accounts.createUser(this.credentials,
+    Meteor.call("register", this.credentials);
+
+    Meteor.loginWithPassword(this.credentials.email, this.credentials.password,
       this.$bindToContext((err) => {
         if (err) {
           this.error = err;
@@ -36,6 +38,7 @@ class Register {
         }
       })
     );
+
   }
 }
 

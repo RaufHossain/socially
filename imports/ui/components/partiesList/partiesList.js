@@ -2,6 +2,7 @@ import angular from 'angular';
 import angularMeteor from 'angular-meteor';
 import uiRouter from 'angular-ui-router';
 import utilsPagination from 'angular-utils-pagination';
+import { Roles } from 'meteor/alanning:roles';
 
 import { Counts } from 'meteor/tmeasday:publish-counts';
 
@@ -51,6 +52,17 @@ class PartiesList {
       isLoggedIn() {
         return !!Meteor.userId();
       },
+      isStudent() {
+        var id = Meteor.userId();
+        const student = Roles.userIsInRole(id,
+        ['student'], 'default-group');
+
+        if (student) {
+          return true;
+        }else{
+          return false;
+        };
+      },
       currentUserId() {
         return Meteor.userId();
       }
@@ -67,6 +79,16 @@ class PartiesList {
 
   sortChanged(sort) {
     this.sort = sort;
+  }
+
+  test(){
+    var id = Meteor.userId();
+    const canDelete = Roles.userIsInRole(id,
+    ['student'], 'default-group');
+
+    if (canDelete) {
+      console.log("It is a student");
+    }else("Professor");
   }
 
 

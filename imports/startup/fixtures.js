@@ -1,5 +1,7 @@
 import { Meteor } from 'meteor/meteor';
 import { Parties } from '../api/parties/index';
+import { Accounts } from 'meteor/accounts-base';
+import { Roles } from 'meteor/alanning:roles';
 
 Meteor.startup(() => {
   if (Parties.find().count() === 0) {
@@ -18,4 +20,24 @@ Meteor.startup(() => {
       Parties.insert(party)
     });
   }
+
+  Meteor.methods({
+
+    register: function (credentials) {
+
+      var id;
+
+      id = Accounts.createUser(credentials);
+
+      if(credentials.profile.student === 'false'){
+        Roles.addUsersToRoles(id, 'professor', 'default-group');
+        return true;
+      }else{
+        Roles.addUsersToRoles(id, 'student', 'default-group');
+        return true;
+      }
+      return false;
+    }
+
+  });
 });

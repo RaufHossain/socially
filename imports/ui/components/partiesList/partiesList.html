@@ -1,10 +1,11 @@
 <div layout="column" layout-padding>
-  <h1 ng-show="partiesList.isLoggedIn">Add Courses</h1>
+  <h1 ng-show="!partiesList.isStudent && partiesList.isLoggedIn">Add Courses</h1>
+  <party-add ng-show="!partiesList.isStudent && partiesList.isLoggedIn"></party-add>
   <div ng-hide="partiesList.isLoggedIn">
     <i>Log in to create a courses!</i>
   </div>
 
-  <party-add-button ng-show="partiesList.isLoggedIn"></party-add-button>
+  <party-add-button ng-show="!partiesList.isStudent && partiesList.isLoggedIn"></party-add-button>
 
   <div flex>
     <h2 class="md-display-1">List of the courses:</h2>
@@ -24,10 +25,17 @@
       <md-card dir-paginate="party in partiesList.parties | itemsPerPage: partiesList.perPage" total-items="partiesList.partiesCount">
         <md-card-title>
           <md-card-title-text>
-            <span class="md-headline" ui-sref="partyDetails({ partyId: party._id })">
-              {{party.name}}
+            <div>
+              <md-button class="md-primary md-hue-1 md-raised">
+                <span class="md-headline" ui-sref="partyDetails({ partyId: party._id })">
+                  {{party.name}}
+                </span>
+              </md-button>
               <party-remove party="party" ng-show="partiesList.isOwner(party)"></party-remove>
-            </span>
+            </div>
+
+
+
             <span class="md-subhead">{{party.description}}</span>
             <span class="md-subhead">Number Of Credits: {{party.credits}}</span>
           </md-card-title-text>
