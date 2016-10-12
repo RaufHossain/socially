@@ -1,6 +1,6 @@
 <div layout="column" layout-padding>
   <div layout="column" layout-gt-sm="row"  layout-padding>
-    <form flex="50" layout="column">
+    <form ng-show="!partyDetails.isStudent" flex="50" layout="column">
       <md-input-container>
         <label>Course name</label>
         <input ng-model="partyDetails.party.name" ng-disabled="!partyDetails.isLoggedIn">
@@ -30,6 +30,30 @@
         <md-button ui-sref="parties" class="md-primary md-raised">Back</md-button>
       </div>
     </form>
+
+
+    <div ng-show="partyDetails.isStudent" layout="column" layout-padding>
+      <md-input-container>
+        <label>
+          Course Name:
+        </label>
+        <h1>{{partyDetails.party.name}}</h1>
+      </md-input-container>
+      <md-input-container>
+        <label>
+          Description:
+        </label>
+        <h2>{{partyDetails.party.description}}</h2>
+      </md-input-container>
+      <md-input-container>
+        <label>
+          Number Of Credits:
+        </label>
+        <h2>{{partyDetails.party.credits}}</h2>
+      </md-input-container>
+      <party-add-button></party-add-button>
+    </div>
+
 
 
   </div>

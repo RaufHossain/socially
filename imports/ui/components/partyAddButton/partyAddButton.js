@@ -23,6 +23,7 @@ class PartyAddButton {
         break;
       }
     }
+    //need to work here
     if(user.profile.student === "false"){
       this.$mdDialog.show({
         controller($mdDialog) {

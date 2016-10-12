@@ -3,7 +3,6 @@ import { Meteor } from 'meteor/meteor';
 import { check } from 'meteor/check';
 import { Email } from 'meteor/email';
 
-
 import { Parties } from './collection';
 
 function getContactEmail(user) {
@@ -63,7 +62,6 @@ export function invite(partyId, userId) {
     }
   }
 }
-
 
 
 Meteor.methods({

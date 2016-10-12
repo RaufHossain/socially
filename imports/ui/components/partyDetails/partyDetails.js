@@ -2,6 +2,7 @@ import angular from 'angular';
 import angularMeteor from 'angular-meteor';
 import uiRouter from 'angular-ui-router';
 import { Meteor } from 'meteor/meteor';
+import { Roles } from 'meteor/alanning:roles';
 
 
 import template from './partyDetails.html';
@@ -27,6 +28,17 @@ class PartyDetails {
       },
       users() {
         return Meteor.users.find({});
+      },
+      isStudent() {
+        var id = Meteor.userId();
+        const student = Roles.userIsInRole(id,
+        ['student'], 'default-group');
+        console.log(student);
+        if (student) {
+          return true;
+        }else{
+          return false;
+        };
       },
       isLoggedIn() {
         return !!Meteor.userId();
