@@ -13,7 +13,6 @@ class CourseAddButton {
     this.$mdDialog = $mdDialog;
     this.$mdMedia = $mdMedia;
     this.users = Meteor.users.find().collection._docs._map;
-
   }
 
   open(event) {
@@ -23,8 +22,7 @@ class CourseAddButton {
     //     break;
     //   }
     // }
-
-
+    console.log(this.course.description);
     // var id = Meteor.userId();
     // const student = Roles.userIsInRole(id,
     // ['student'], 'default-group');
@@ -33,12 +31,23 @@ class CourseAddButton {
         controller($mdDialog) {
           'ngInject';
 
+
           this.close = () => {
             $mdDialog.hide();
           }
 
-          this.addCourse = () =>{
-            console.log("Working");
+          this.addCourse = (course) =>{
+            //console.log("Working "+course.description);
+
+            // var course ={
+            //   courseId: this.course.courseId,
+            //   credits: this.course.credits,
+            //   description: this.course.description,
+            //   name: this.course.name,
+            //   ownerID: this.course.ownerID,
+            // }
+            // Meteor.call('update', course, this.course.studentID);
+
             $mdDialog.hide();
           }
         },
@@ -61,7 +70,7 @@ export default angular.module(name, [
 ]).component(name, {
   template: buttonTemplate,
   bindings: {
-    party: '<'
+    course: '<'
   },
   controllerAs: name,
   controller: CourseAddButton

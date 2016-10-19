@@ -51,7 +51,6 @@ class PartyAdd {
         credits: this.course.credits,
       };
 
-      //Meteor.call('update', course, id);
       Meteor.call('message', course);
     }
 
