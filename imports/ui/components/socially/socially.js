@@ -9,6 +9,7 @@ import { name as PartyDetails } from '../partyDetails/partyDetails';
 import { name as Navigation } from '../navigation/navigation';
 import { name as Auth } from '../auth/auth';
 import { name as CompletedCourses } from '../completedCourses/completedCourses';
+import { name as messages } from '../messages/messages';
 
 class Socially {}
 
@@ -24,6 +25,7 @@ export default angular.module(name, [
   Navigation,
   Auth,
   CompletedCourses,
+  messages,
   'accounts.ui'
 ]).component(name, {
   template,

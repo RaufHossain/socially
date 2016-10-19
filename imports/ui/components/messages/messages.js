@@ -4,9 +4,9 @@ import uiRouter from 'angular-ui-router';
 import { Meteor } from 'meteor/meteor';
 
 
-import template from './completedCourses.html';
+import template from './messages.html';
 
-class CompletedCourses {
+class Messages {
   constructor($stateParams, $scope, $reactive) {
     'ngInject';
 
@@ -23,14 +23,14 @@ class CompletedCourses {
       isLoggedIn() {
         return !!Meteor.userId();
       },
-      courses: function(){
+      messages: function(){
         return Meteor.users.findOne({"_id": Meteor.userId()});
       }
     });
   }
 }
 
-const name = 'completedCourses';
+const name = 'messages';
 
 // create a module
 export default angular.module(name, [
@@ -39,16 +39,16 @@ export default angular.module(name, [
 ]).component(name, {
   template,
   controllerAs: name,
-  controller: CompletedCourses
+  controller: Messages
 })
   .config(config);
 
 function config($stateProvider) {
   'ngInject';
 
-  $stateProvider.state('completedCourses', {
-    url: '/completedCourses',
-    template: '<completed-courses></completed-courses>',
+  $stateProvider.state('messages', {
+    url: '/messages',
+    template: '<messages></messages>',
     resolve: {
       currentUser($q) {
         if (Meteor.userId() === null) {

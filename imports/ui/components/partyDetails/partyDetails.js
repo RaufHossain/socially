@@ -33,7 +33,6 @@ class PartyDetails {
         var id = Meteor.userId();
         const student = Roles.userIsInRole(id,
         ['student'], 'default-group');
-        console.log(student);
         if (student) {
           return true;
         }else{
