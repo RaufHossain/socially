@@ -1,5 +1,7 @@
 import angular from 'angular';
 import angularMeteor from 'angular-meteor';
+import { Roles } from 'meteor/alanning:roles';
+
 
 import buttonTemplate from './partyAddButton.html';
 import modalTemplate from './partyAddModal.html';
@@ -23,8 +25,12 @@ class PartyAddButton {
         break;
       }
     }
-    //need to work here
-    if(user.profile.student === "false"){
+
+
+    var id = Meteor.userId();
+    const student = Roles.userIsInRole(id,
+    ['student'], 'default-group');
+    if(!student){
       this.$mdDialog.show({
         controller($mdDialog) {
           'ngInject';
@@ -41,6 +47,7 @@ class PartyAddButton {
         fullscreen: this.$mdMedia('sm') || this.$mdMedia('xs')
       });
     }else{
+      var party = this.party;
       this.$mdDialog.show({
         controller($mdDialog) {
           'ngInject';
@@ -48,6 +55,7 @@ class PartyAddButton {
           this.close = () => {
             $mdDialog.hide();
           }
+          this.party = party;
         },
         controllerAs: 'partyAddModal',
         template: partyAddModalNotAllowed,
@@ -68,6 +76,9 @@ export default angular.module(name, [
   PartyAdd
 ]).component(name, {
   template: buttonTemplate,
+  bindings: {
+    party: '<'
+  },
   controllerAs: name,
   controller: PartyAddButton
 });

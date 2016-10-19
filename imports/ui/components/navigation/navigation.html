@@ -5,9 +5,14 @@
         Socially
       </span>
     </md-button>
-    <md-button>
+    <md-button ng-show="navigation.isStudent" >
       <span ui-sref="completedCourses">
         Completed Courses
+      </span>
+    </md-button>
+    <md-button ng-show="!navigation.isStudent" >
+      <span ui-sref="messages">
+        Messages
       </span>
     </md-button>
     <span flex></span>

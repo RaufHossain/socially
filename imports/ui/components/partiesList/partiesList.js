@@ -12,6 +12,7 @@ import paginationTemplate from './customPagination.tpl.html';
 import { name as PartyAdd } from '../partyAdd/partyAdd';
 import { name as PartyRemove } from '../partyRemove/partyRemove';
 import { name as PartyAddButton } from '../partyAddButton/partyAddButton';
+import { name as CourseAddButton } from '../courseAddButton/courseAddButton';
 import { name as PartiesSort } from '../partiesSort/partiesSort';
 import { name as PartyCreator } from '../partyCreator/partyCreator';
 import { Parties } from '../../../api/parties/index';
@@ -56,7 +57,6 @@ class PartiesList {
         var id = Meteor.userId();
         const student = Roles.userIsInRole(id,
         ['student'], 'default-group');
-        console.log(student);
         if (student) {
           return true;
         }else{
@@ -82,13 +82,16 @@ class PartiesList {
   }
 
   test(){
-    var id = Meteor.userId();
-    const canDelete = Roles.userIsInRole(id,
-    ['student'], 'default-group');
-
-    if (canDelete) {
-      console.log("It is a student");
-    }else("Professor");
+    var users = Meteor.users.find().collection._docs._map;
+    for (var index in users) {
+      if(users[index]._id === Meteor.userId()){
+        var user = users[index];
+        break;
+      }
+    }
+    const student = Meteor.users.findOne({_id:Meteor.userId()});
+    console.log(user);
+    console.log(student);
   }
 
 
@@ -105,7 +108,8 @@ export default angular.module(name, [
   PartyAddButton,
   PartyRemove,
   PartiesSort,
-  PartyCreator
+  PartyCreator,
+  CourseAddButton
 ]).component(name, {
   template,
   controllerAs: name,

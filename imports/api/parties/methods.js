@@ -2,6 +2,7 @@ import _ from 'underscore';
 import { Meteor } from 'meteor/meteor';
 import { check } from 'meteor/check';
 import { Email } from 'meteor/email';
+import { Roles } from 'meteor/alanning:roles';
 
 import { Parties } from './collection';
 

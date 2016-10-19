@@ -1,4 +1,4 @@
-<div layout="column" layout-padding>
+<div ng-show="!partyAdd.isStudent" layout="column" layout-padding>
   <md-input-container>
     <label>
       Course Name:
@@ -22,6 +22,12 @@
       Public Course?
     </md-checkbox>
   </div>
+  <div flex>
+    <md-button ng-click="partyAdd.submit()" class="md-raised">Add Course!</md-button>
+  </div>
+</div>
+
+<div ng-show="partyAdd.isStudent" layout="column" layout-padding>
   <div flex>
     <md-button ng-click="partyAdd.submit()" class="md-raised">Add Course!</md-button>
   </div>

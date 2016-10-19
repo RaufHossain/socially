@@ -38,6 +38,30 @@ Meteor.startup(() => {
       }
       return false;
     }
+  });
+
+  Meteor.methods({
+
+    update: function (course, id) {
+
+      Meteor.users.update(id, {
+        $push: {
+          courses: course
+        }
+      });
+    }
+  });
+
+  Meteor.methods({
+    message: function(course){
+
+      Meteor.users.update(course.ownerID, {
+        $push: {
+          messages: course
+        }
+      });
+    }
 
   });
+
 });
