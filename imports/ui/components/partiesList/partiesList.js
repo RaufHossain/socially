@@ -13,6 +13,7 @@ import { name as PartyAdd } from '../partyAdd/partyAdd';
 import { name as PartyRemove } from '../partyRemove/partyRemove';
 import { name as PartyAddButton } from '../partyAddButton/partyAddButton';
 import { name as CourseAddButton } from '../courseAddButton/courseAddButton';
+import { name as CourseAdd } from '../courseAdd/courseAdd';
 import { name as PartiesSort } from '../partiesSort/partiesSort';
 import { name as PartyCreator } from '../partyCreator/partyCreator';
 import { Parties } from '../../../api/parties/index';
@@ -109,6 +110,7 @@ export default angular.module(name, [
   PartyRemove,
   PartiesSort,
   PartyCreator,
+  CourseAdd,
   CourseAddButton
 ]).component(name, {
   template,

@@ -1,0 +1,33 @@
+<div layout="column" layout-padding>
+  <div layout="column" layout-gt-sm="row"  layout-padding>
+    <div layout="column" layout-padding>
+
+      <md-input-container>
+        <label>
+          Course Name:
+        </label>
+        <h1>{{courseAdd.course.name}}</h1>
+      </md-input-container>
+      <md-input-container>
+        <label>
+          Description:
+        </label>
+        <h2>{{courseAdd.course.description}}</h2>
+      </md-input-container>
+      <md-input-container>
+        <label>
+          Number Of Credits:
+        </label>
+        <h2>{{courseAdd.course.credits}}</h2>
+      </md-input-container>
+      <md-input-container>
+        <label>
+          Name Of Student:
+        </label>
+        <h2>{{courseAdd.course.studentName}}</h2>
+      </md-input-container>
+      <md-button ng-click="courseAdd.addCourse()" class="md-primary md-raised">Save</md-button>
+
+    </div>
+  </div>
+</div>

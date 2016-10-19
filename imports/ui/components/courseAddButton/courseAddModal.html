@@ -1,14 +1,17 @@
 <md-dialog aria-label="New party" ng-cloak>
   <md-toolbar>
     <div class="md-toolbar-tools">
-      <md-button ng-click="courseAddModal.addCourse()">
-        Add Course
-      </md-button>
+      <h2>Add Course</h2>
 
       <span flex></span>
       <md-button ng-click="courseAddModal.close()">
-        Reject
+        Close
       </md-button>
     </div>
   </md-toolbar>
+  <md-dialog-content>
+    <div class="md-dialog-content">
+      <course-add course="courseAddModal.course" done="courseAddModal.close()"></course-add>
+    </div>
+  </md-dialog-content>
 </md-dialog>

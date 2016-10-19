@@ -61,10 +61,54 @@ export function invite(partyId, userId) {
         `
       });
     }
+
   }
+}
+
+export function emailInvite(course, studentID) {
+
+
+  const student = Meteor.users.findOne(studentID);
+  const professor = Meteor.users.findOne(course.ownerID);
+
+
+  if (!student) {
+    throw new Meteor.Error(404, 'No such student!');
+  }
+  if (!professor) {
+    throw new Meteor.Error(404, 'No such professor!');
+  }
+
+
+    const replyTo = professor.emails[0].address;
+    // const to = student.emails[0].address;
+    const to = "raufhossain2010@yahoo.com";
+    const title = "Add Course";
+
+    //Un-hint it
+    // if (Meteor.isServer && to) {
+    //   Email.send({
+    //     to,
+    //     replyTo,
+    //     from: 'noreply@socially.com',
+    //     subject: `Course: ${course.name}`,
+    //     text: `
+    //       Hey, please add this course to ${student.username}.
+    //       Come check it out: ${Meteor.absoluteUrl()}
+    //     `
+    //   });
+    // }
+    Meteor.users.update(course.ownerID, {
+      $pull: {
+        messages: {courseId: course.courseId}
+      }
+    })
+
+    console.log("Course Added Successfully")
 }
 
 
 Meteor.methods({
-  invite
+  invite,
+  emailInvite
 });

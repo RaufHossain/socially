@@ -16,17 +16,9 @@ class CourseAddButton {
   }
 
   open(event) {
-    // for (var index in this.users) {
-    //   if(this.users[index]._id === Meteor.userId()){
-    //     var user = this.users[index];
-    //     break;
-    //   }
-    // }
-    console.log(this.course.description);
-    // var id = Meteor.userId();
-    // const student = Roles.userIsInRole(id,
-    // ['student'], 'default-group');
 
+    console.log(this.course.description);
+      var course = this.course;
       this.$mdDialog.show({
         controller($mdDialog) {
           'ngInject';
@@ -35,21 +27,8 @@ class CourseAddButton {
           this.close = () => {
             $mdDialog.hide();
           }
+          this.course = course;
 
-          this.addCourse = (course) =>{
-            //console.log("Working "+course.description);
-
-            // var course ={
-            //   courseId: this.course.courseId,
-            //   credits: this.course.credits,
-            //   description: this.course.description,
-            //   name: this.course.name,
-            //   ownerID: this.course.ownerID,
-            // }
-            // Meteor.call('update', course, this.course.studentID);
-
-            $mdDialog.hide();
-          }
         },
         controllerAs: 'courseAddModal',
         template: modalTemplate,
