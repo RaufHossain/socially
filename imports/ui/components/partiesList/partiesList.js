@@ -83,16 +83,17 @@ class PartiesList {
   }
 
   test(){
-    var users = Meteor.users.find().collection._docs._map;
-    for (var index in users) {
-      if(users[index]._id === Meteor.userId()){
-        var user = users[index];
-        break;
-      }
-    }
-    const student = Meteor.users.findOne({_id:Meteor.userId()});
-    console.log(user);
-    console.log(student);
+    // var users = Meteor.users.find().collection._docs._map;
+    // for (var index in users) {
+    //   if(users[index]._id === Meteor.userId()){
+    //     var user = users[index];
+    //     break;
+    //   }
+    // }
+    // const student = Meteor.users.findOne({_id:Meteor.userId()});
+    // console.log(user);
+    // console.log(student);
+    alert("hello");
   }
 
 

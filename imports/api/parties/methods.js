@@ -85,24 +85,23 @@ export function emailInvite(course, studentID) {
     const to = "raufhossain2010@yahoo.com";
     const title = "Add Course";
 
-    //Un-hint it
-    // if (Meteor.isServer && to) {
-    //   Email.send({
-    //     to,
-    //     replyTo,
-    //     from: 'noreply@socially.com',
-    //     subject: `Course: ${course.name}`,
-    //     text: `
-    //       Hey, please add this course to ${student.username}.
-    //       Come check it out: ${Meteor.absoluteUrl()}
-    //     `
-    //   });
-    // }
     Meteor.users.update(course.ownerID, {
       $pull: {
         messages: {courseId: course.courseId}
       }
     })
+
+    //Un-hint it
+    if (Meteor.isServer && to) {
+      Email.send({
+        to,
+        replyTo,
+        from: "raufhossain2010@gmail.com",
+        subject: "Course: "+course.name,
+        text: "Hey, please add this course to "+student.username,
+      });
+    }
+
 
     console.log("Course Added Successfully")
 }
