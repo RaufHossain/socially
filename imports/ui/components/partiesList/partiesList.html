@@ -1,11 +1,20 @@
 <div layout="column" layout-padding>
+
+  <div>
+  <h2 class="md-display-1">List of Students</h2>
+  </div>
+  <ul ng-repeat = "user in partiesList.users">
+    <li><a ng-click="partiesList.test(user)">{{user.username}}</a></li>
+  </ul>
+
   <h1 ng-show="!partiesList.isStudent && partiesList.isLoggedIn">Add Courses</h1>
-  <party-add ng-show="!partiesList.isStudent && partiesList.isLoggedIn"></party-add>
+  <party-add ng-show="!partiesList.isStudent && partiesList.isLoggedIn && !partiesList.showButton"></party-add>
   <div ng-hide="partiesList.isLoggedIn">
     <i>Log in to create a courses!</i>
   </div>
 
-  <party-add-button ng-show="!partiesList.isStudent && partiesList.isLoggedIn"></party-add-button>
+
+  <party-add-button ng-show="!partiesList.isStudent && partiesList.isLoggedIn && partiesList.showButton"></party-add-button>
 
   <div flex>
     <h2 class="md-display-1">List of the courses:</h2>
@@ -23,23 +32,14 @@
   <div layout="column" layout-gt-sm="row">
     <div flex="50">
       <md-card dir-paginate="party in partiesList.parties | itemsPerPage: partiesList.perPage" total-items="partiesList.partiesCount">
-        <md-card-title>
-          <md-card-title-text>
-            <div>
-              <md-button class="md-primary md-hue-1 md-raised">
-                <span class="md-headline" ui-sref="partyDetails({ partyId: party._id })">
-                  {{party.name}}
-                </span>
-              </md-button>
-              <party-remove party="party" ng-show="partiesList.isOwner(party)"></party-remove>
-            </div>
 
+        <article class="underline">
+          <h1><a ui-sref="partyDetails({ partyId: party._id })">{{party.name}}</a></h1>
+          <party-remove party="party" ng-show="partiesList.isOwner(party)"></party-remove>
+          <h2>Number Of Credits: {{party.credits}}</h2>
+          <p>{{party.description}}</p>
+        </article>
 
-
-            <span class="md-subhead">{{party.description}}</span>
-            <span class="md-subhead">Number Of Credits: {{party.credits}}</span>
-          </md-card-title-text>
-        </md-card-title>
         <md-card-content>
           <party-creator party="party"></party-creator>
         </md-card-content>

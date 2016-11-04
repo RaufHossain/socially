@@ -66,6 +66,16 @@ class PartiesList {
       },
       currentUserId() {
         return Meteor.userId();
+      },
+      showButton(){
+        return !Meteor.isCordova;
+      },
+      users() {
+        Meteor.call("findStudents", function(err, results){
+          if(err) return err;
+          Session.set("findStudents", results);
+        });
+        return Session.get("findStudents");
       }
     });
   }
@@ -82,7 +92,19 @@ class PartiesList {
     this.sort = sort;
   }
 
-  test(){
+  detectDepartment(user){
+
+    if (typeof user.department === "undefined") {
+      // Meteor.call("addDepartment", user._id);
+      // this.$state.go('department');
+    }else{
+      console.log(user);
+    }
+
+  }
+
+
+  test(user){
     // var users = Meteor.users.find().collection._docs._map;
     // for (var index in users) {
     //   if(users[index]._id === Meteor.userId()){
@@ -90,10 +112,20 @@ class PartiesList {
     //     break;
     //   }
     // }
+    // Meteor.call("findStudents", function(err, results){
+    //   if(err) return err;
+    //
+    //   Session.set("findStudents", results);
+    //   console.log(results);
+    //
+    // });
+
     // const student = Meteor.users.findOne({_id:Meteor.userId()});
-    // console.log(user);
+    //
+    //
     // console.log(student);
-    alert("hello");
+
+
   }
 
 

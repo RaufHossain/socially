@@ -1,21 +1,13 @@
-<md-toolbar>
-  <div class="md-toolbar-tools">
-    <md-button>
-      <span ui-sref="parties">
-        Dashboard
-      </span>
-    </md-button>
-    <md-button ng-show="navigation.isStudent" >
-      <span ui-sref="completedCourses">
-        Completed
-      </span>
-    </md-button>
-    <md-button ng-show="!navigation.isStudent" >
-      <span ui-sref="messages">
-        Messages
-      </span>
-    </md-button>
-    <span flex></span>
-    <auth></auth>
-  </div>
-</md-toolbar>
+<header>
+  <nav class="horizontal menu">
+          <ul>
+              <li ng-show="navigation.isLoggedIn"><a ui-sref="parties">Home page</a></li>
+              <li ng-show="navigation.isStudent && navigation.isLoggedIn"><a ui-sref="completedCourses">Completed</a></li>
+              <li ng-show="!navigation.isStudent && navigation.isLoggedIn"><a  ui-sref="messages">Messages</a></li>
+          </ul>
+
+  </nav>
+  <span flex></span>
+  <auth></auth>
+      <div class="clear"></div>
+</header>
