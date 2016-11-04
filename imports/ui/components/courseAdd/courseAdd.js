@@ -39,7 +39,7 @@ class CourseAdd {
       ownerID: this.course.ownerID,
     }
     //Un-hint it
-    // Meteor.call('update', course, this.course.studentID);
+    Meteor.call('update', course, this.course.studentID);
     Meteor.call('emailInvite', course, this.course.studentID);
 
     if(this.done) {

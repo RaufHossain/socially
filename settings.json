@@ -1,0 +1,8 @@
+{
+    "galaxy.meteor.com": {
+        "env": {
+        "MONGO_URL":"mongodb://raufhossain:dhakacity23@ds031925.mlab.com:31925/appdb",
+        "MAIL_URL":"smtp://postmaster@sandbox82dd90f5b67148e7861d8deb15e26f3a.mailgun.org:a0634e547c9b3ce97fe19a3d1f95357f@smtp.mailgun.org:587"
+        }
+    }
+}

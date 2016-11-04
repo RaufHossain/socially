@@ -1,6 +1,7 @@
 import angular from 'angular';
 import angularMeteor from 'angular-meteor';
 import { Roles } from 'meteor/alanning:roles';
+import { Meteor } from 'meteor/meteor';
 
 import template from './navigation.html';
 
@@ -22,6 +23,9 @@ class Navigation {
         }else{
           return false;
         };
+      },
+      isLoggedIn() {
+        return !!Meteor.userId();
       }
     });
   }

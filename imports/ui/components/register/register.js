@@ -4,6 +4,9 @@ import { Meteor } from 'meteor/meteor';
 import uiRouter from 'angular-ui-router';
 
 
+
+
+
 import template from './register.html';
 
 class Register {
@@ -14,6 +17,13 @@ class Register {
 
     $reactive(this).attach($scope);
 
+    // this.options = [
+    //   {name:'Mobile Software Engineering', value: "BCOSC.MSE"},
+    //   {name:'Genereal Computer Science', value: "BCOSC4", notAnOption: true}
+    // ];
+    // this.department = this.options[1];
+
+
     this.credentials = {
       email: '',
       password: '',
@@ -23,10 +33,16 @@ class Register {
       }
     };
 
+
     this.error = '';
   }
 
   register() {
+    // if(this.department.value === "BCOSC4"){
+    //   this.credentials.department = bcosc4;
+    // }else{
+    //   console.log("BCOSC.MSE");
+    // }
     Meteor.call("register", this.credentials);
 
     Meteor.loginWithPassword(this.credentials.email, this.credentials.password,
@@ -38,6 +54,7 @@ class Register {
         }
       })
     );
+
 
   }
 }

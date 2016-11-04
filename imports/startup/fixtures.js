@@ -2,6 +2,7 @@ import { Meteor } from 'meteor/meteor';
 import { Parties } from '../api/parties/index';
 import { Accounts } from 'meteor/accounts-base';
 import { Roles } from 'meteor/alanning:roles';
+import { Session } from 'meteor/session'
 
 Meteor.startup(() => {
   if (Parties.find().count() === 0) {
@@ -63,5 +64,58 @@ Meteor.startup(() => {
     }
 
   });
+
+  Meteor.methods({
+
+    findStudents: function () {
+
+      var userArray = Meteor.users.find({}).fetch();
+      var id;
+      var studentArray = [];
+      var j =0;
+      var student;
+      for (i = 0; i < userArray.length; i++) {
+         id = userArray[i]._id
+        student = Roles.userIsInRole(id,
+        ['student'], 'default-group');
+
+
+        if(student){
+          studentArray[j]=userArray[i];
+          j++;
+        }
+
+      }
+      return(studentArray);
+    }
+  });
+
+  // Meteor.methods({
+  //
+  //   addDepartment: function (id) {
+  //
+  //     // if(departmentName === ""){
+  //
+  //       Meteor.users.update(course.ownerID, {
+  //         $push: {
+  //           department: bcosc4
+  //         }
+  //       });
+  //
+  //     // }else{
+  //     //
+  //     //   Meteor.users.update(course.ownerID, {
+  //     //     $push: {
+  //     //       department: bcosc.mse
+  //     //     }
+  //     //   });
+  //     //
+  //     // }
+  //
+  //   }
+  // });
+
+
+
 
 });
