@@ -4,6 +4,8 @@ import { Accounts } from 'meteor/accounts-base';
 import { Roles } from 'meteor/alanning:roles';
 import { Session } from 'meteor/session'
 
+import {bcosc4} from "./database"
+
 Meteor.startup(() => {
   if (Parties.find().count() === 0) {
     const parties = [{
@@ -90,30 +92,30 @@ Meteor.startup(() => {
     }
   });
 
-  // Meteor.methods({
-  //
-  //   addDepartment: function (id) {
-  //
-  //     // if(departmentName === ""){
-  //
-  //       Meteor.users.update(course.ownerID, {
-  //         $push: {
-  //           department: bcosc4
-  //         }
-  //       });
-  //
-  //     // }else{
-  //     //
-  //     //   Meteor.users.update(course.ownerID, {
-  //     //     $push: {
-  //     //       department: bcosc.mse
-  //     //     }
-  //     //   });
-  //     //
-  //     // }
-  //
-  //   }
-  // });
+  Meteor.methods({
+
+    addDepartment: function (id, departmentName) {
+
+      if(departmentName === "Genereal Computer Science"){
+
+        Meteor.users.update(id, {
+          $push: {
+            department: bcosc4
+          }
+        });
+      }else{
+
+        // Meteor.users.update(course.ownerID, {
+        //   $push: {
+        //     department: bcosc.mse
+        //   }
+        // });
+        console.log("bcosc.mse");
+
+      }
+
+    }
+  });
 
 
 

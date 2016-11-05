@@ -4,7 +4,7 @@
   <h2 class="md-display-1">List of Students</h2>
   </div>
   <ul ng-repeat = "user in partiesList.users">
-    <li><a ng-click="partiesList.test(user)">{{user.username}}</a></li>
+    <li><a ui-sref="studentDetails({ studentId: user._id })">{{user.username}}</a></li>
   </ul>
 
   <h1 ng-show="!partiesList.isStudent && partiesList.isLoggedIn">Add Courses</h1>

@@ -16,6 +16,7 @@ import { name as CourseAddButton } from '../courseAddButton/courseAddButton';
 import { name as CourseAdd } from '../courseAdd/courseAdd';
 import { name as PartiesSort } from '../partiesSort/partiesSort';
 import { name as PartyCreator } from '../partyCreator/partyCreator';
+import { name as StudentDetails } from '../studentDetails/studentDetails';
 import { Parties } from '../../../api/parties/index';
 
 
@@ -120,10 +121,10 @@ class PartiesList {
     //
     // });
 
-    // const student = Meteor.users.findOne({_id:Meteor.userId()});
-    //
-    //
-    // console.log(student);
+    const student = Meteor.users.findOne({_id:Meteor.userId()});
+
+
+    console.log(student);
 
 
   }
@@ -144,7 +145,8 @@ export default angular.module(name, [
   PartiesSort,
   PartyCreator,
   CourseAdd,
-  CourseAddButton
+  CourseAddButton,
+  StudentDetails
 ]).component(name, {
   template,
   controllerAs: name,

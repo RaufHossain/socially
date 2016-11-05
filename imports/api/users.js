@@ -14,7 +14,8 @@ if (Meteor.isServer) {
         username: 1,
         profile: 1,
         courses: 1,
-        messages: 1
+        messages: 1,
+        department:1
       }
     });
   });
