@@ -114,6 +114,41 @@ Meteor.startup(() => {
 
       }
 
+    },
+    fourth_year_Courses: function (id) {
+
+      var users = Meteor.users.find({_id:id}).fetch();
+      var array = [];
+
+      array[0] = users[0].department[0].core_courses.fourth_year[0];
+      array[1] = users[0].department[0].core_courses.fourth_year[1];
+
+
+      if(users[0].department[0].core_courses.fourth_year[2].status === "pending" || users[0].department[0].core_courses.fourth_year[2].status === "passed"){
+        array[2] = users[0].department[0].core_courses.fourth_year[2];
+        array[3] = users[0].department[0].core_courses.fourth_year[4];
+      }else{
+        if(users[0].department[0].core_courses.fourth_year[3].status === "pending" || users[0].department[0].core_courses.fourth_year[3].status === "passed"){
+          array[2] = users[0].department[0].core_courses.fourth_year[3];
+          array[3] = users[0].department[0].core_courses.fourth_year[4];
+          array[4] = users[0].department[0].core_courses.fourth_year[5];
+        }else{
+        array[2] = users[0].department[0].core_courses.fourth_year[4];
+        array[3] = users[0].department[0].core_courses.fourth_year[5];
+        array[4] = users[0].department[0].core_courses.fourth_year[6];
+        }
+      }
+      return array;
+    },
+    cosc_electives: function (id) {
+      var users = Meteor.users.find({_id:id}).fetch();
+
+      var array = users[0].department[0].cosc_electives.courses;
+
+      if (typeof array == 'undefined' && array.length == 0) {
+        return true;
+      }
+      else{return false;}
     }
   });
 

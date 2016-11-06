@@ -1,62 +1,108 @@
+<br></br>
 <div>
-  <h1 ng-repeat = "user in studentDetails.users">Name: {{user.username}}</h1>
+  <h1>Name: {{studentDetails.users[0].username}}</h1>
 
 </div>
+<br></br>
+<table id="studentTable">
+  <h3>First Year credits:</h3>
+  <tr>
+    <th>Course Code</th>
+    <th>Number of Credits</th>
+    <th>Pre-requisites</th>
+    <th>Status</th>
+    <th>Term</th>
+  </tr>
+  <tr ng-repeat = "course in studentDetails.users[0].department[0].core_courses.first_year">
+    <td>{{course.name}}</td>
+    <td>{{course.credits}}</td>
+    <td>{{course.name}}</td>
+    <td>{{course.status}}</td>
+    <td>{{course.term}}</td>
+  </tr>
+</table>
 
-  <table id="customers">
+<br></br>
+
+<table id="studentTable">
+  <h3>Second Year credits:</h3>
+  <tr>
+    <th>Course Code</th>
+    <th>Number of Credits</th>
+    <th>Pre-requisites</th>
+    <th>Status</th>
+    <th>Term</th>
+  </tr>
+  <tr ng-repeat = "course in studentDetails.users[0].department[0].core_courses.second_year">
+    <td>{{course.name}}</td>
+    <td>{{course.credits}}</td>
+    <td>{{course.name}}</td>
+    <td>{{course.status}}</td>
+    <td>{{course.term}}</td>
+  </tr>
+</table>
+
+<br></br>
+
+<table id="studentTable">
+  <h3>Third Year credits:</h3>
+  <tr>
+    <th>Course Code</th>
+    <th>Number of Credits</th>
+    <th>Pre-requisites</th>
+    <th>Status</th>
+    <th>Term</th>
+  </tr>
+  <tr ng-repeat = "course in studentDetails.users[0].department[0].core_courses.third_year">
+    <td>{{course.name}}</td>
+    <td>{{course.credits}}</td>
+    <td>{{course.name}}</td>
+    <td>{{course.status}}</td>
+    <td>{{course.term}}</td>
+  </tr>
+</table>
+
+<br></br>
+
+<table id="studentTable">
+  <h3>Fourth Year credits:</h3>
+  <tr>
+    <th>Course Code</th>
+    <th>Number of Credits</th>
+    <th>Pre-requisites</th>
+    <th>Status</th>
+    <th>Term</th>
+  </tr>
+  <tr ng-repeat = "course in studentDetails.fourth_year">
+    <td>{{course.name}}</td>
+    <td>{{course.credits}}</td>
+    <td>{{course.name}}</td>
+    <td>{{course.status}}</td>
+    <td>{{course.term}}</td>
+  </tr>
+</table>
+<br></br>
+
+<div ng-show="studentDetails.cosc_electives">
+  <table id="studentTable" >
+    <h3>Cosc Electives:</h3>
     <tr>
-      <th>Company</th>
-      <th>Contact</th>
-      <th>Country</th>
+      <th>Course Code</th>
+      <th>Number of Credits</th>
+      <th>Pre-requisites</th>
+      <th>Status</th>
+      <th>Term</th>
     </tr>
-    <tr>
-      <td>Alfreds Futterkiste</td>
-      <td>Maria Anders</td>
-      <td>Germany</td>
-    </tr>
-    <tr>
-      <td>Berglunds snabbköp</td>
-      <td>Christina Berglund</td>
-      <td>Sweden</td>
-    </tr>
-    <tr>
-      <td>Centro comercial Moctezuma</td>
-      <td>Francisco Chang</td>
-      <td>Mexico</td>
-    </tr>
-    <tr>
-      <td>Ernst Handel</td>
-      <td>Roland Mendel</td>
-      <td>Austria</td>
-    </tr>
-    <tr>
-      <td>Island Trading</td>
-      <td>Helen Bennett</td>
-      <td>UK</td>
-    </tr>
-    <tr>
-      <td>Königlich Essen</td>
-      <td>Philip Cramer</td>
-      <td>Germany</td>
-    </tr>
-    <tr>
-      <td>Laughing Bacchus Winecellars</td>
-      <td>Yoshi Tannamuri</td>
-      <td>Canada</td>
-    </tr>
-    <tr>
-      <td>Magazzini Alimentari Riuniti</td>
-      <td>Giovanni Rovelli</td>
-      <td>Italy</td>
-    </tr>
-    <tr>
-      <td>North/South</td>
-      <td>Simon Crowther</td>
-      <td>UK</td>
-    </tr>
-    <tr>
-      <td>Paris spécialités</td>
-      <td>Marie Bertrand</td>
-      <td>France</td>
+    <tr ng-repeat = "course in studentDetails.users[0].department[0].cosc_electives.courses">
+      <td>{{course.name}}</td>
+      <td>{{course.credits}}</td>
+      <td>{{course.name}}</td>
+      <td>{{course.status}}</td>
+      <td>{{course.term}}</td>
     </tr>
   </table>
+</div>
+<div ng-show="!studentDetails.cosc_electives">
+  <h2>No Computer Science Elective Completed</h3>
+</div>
+<br></br>

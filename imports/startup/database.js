@@ -1,109 +1,34 @@
 var bcosc4 = {
       "name" : "BCOSC4",
-      "core_courses" : [
-         {
-            "name" : "COSC1046",
-            "credits" : 3,
-            "pre" : [],
-            "status": "",
-            "term":""
-         },
-         {
-            "name" : "COSC1047",
-            "credits" : 3,
-            "status": "",
-            "term":"",
-            "pre" : [
-              {
-                "name":"COSC1046"
-              }
-            ]
-         },
-	       {
-            "name" : "MATH1056",
-            "credits" : 3,
-            "status": "",
-            "term":"",
-            "pre" : []
-         },
-	       {
-            "name" : "MATH1057",
-            "credits" : 3,
-            "status": "",
-            "term":"",
-            "pre" : [
-              {
-                "name": "MATH1056"
-              }
-            ]
-         },
-
-         {
-            "name" : "COSC2006",
-            "credits" : 3,
-            "status": "",
-            "term":"",
-            "pre" : [
-              {
-                "name": "COSC1047"
-              },
-              {
-                "name": "MATH1056"
-              }
-            ]
-         },
-         {
-            "name" : "COSC2007",
-            "credits" : 3,
-            "status": "",
-            "term":"",
-            "pre" : [
-              {
-                "name": "COSC2006"
-              }
-            ]
-         },
-	       {
-            "name" : "COSC2406",
-            "credits" : 3,
-            "status": "",
-            "term":"",
-            "pre" : [
-              {
-                "name": "COSC1047"
-              },
-              {
-                "name": "MATH1056"
-              }
-            ]
-         },
-	       {
-            "name" : "COSC2307",
-            "credits" : 3,
-            "status": "",
-            "term":"",
-            "pre" : [
-              {
-              "name": "COSC1046"
-              }
-            ]
-         },
-         {
-             "name" : "COSC3406",
+      "core_courses" :{
+        first_year: [
+          {
+             "name" : "COSC1046",
+             "credits" : 3,
+             "pre" : [],
+             "status": "",
+             "term":""
+          },
+          {
+             "name" : "COSC1047",
              "credits" : 3,
              "status": "",
              "term":"",
-             "pre" :[
+             "pre" : [
                {
-                 "name": "COSC2006"
-               },
-               {
-                 "name": "COSC2406"
+                 "name":"COSC1046"
                }
              ]
           },
           {
-             "name" : "MATH2056",
+             "name" : "MATH1056",
+             "credits" : 3,
+             "status": "",
+             "term":"",
+             "pre" : []
+          },
+          {
+             "name" : "MATH1057",
              "credits" : 3,
              "status": "",
              "term":"",
@@ -112,8 +37,86 @@ var bcosc4 = {
                  "name": "MATH1056"
                }
              ]
+          }
+        ],
+        second_year:[
+          {
+             "name" : "COSC2006",
+             "credits" : 3,
+             "status": "",
+             "term":"",
+             "pre" : [
+               {
+                 "name": "COSC1047"
+               },
+               {
+                 "name": "MATH1056"
+               }
+             ]
           },
-          //3rd year
+          {
+             "name" : "COSC2007",
+             "credits" : 3,
+             "status": "",
+             "term":"",
+             "pre" : [
+               {
+                 "name": "COSC2006"
+               }
+             ]
+          },
+          {
+             "name" : "COSC2406",
+             "credits" : 3,
+             "status": "",
+             "term":"",
+             "pre" : [
+               {
+                 "name": "COSC1047"
+               },
+               {
+                 "name": "MATH1056"
+               }
+             ]
+          },
+          {
+             "name" : "COSC2307",
+             "credits" : 3,
+             "status": "",
+             "term":"",
+             "pre" : [
+               {
+               "name": "COSC1046"
+               }
+             ]
+          },
+          {
+              "name" : "COSC3406",
+              "credits" : 3,
+              "status": "",
+              "term":"",
+              "pre" :[
+                {
+                  "name": "COSC2006"
+                },
+                {
+                  "name": "COSC2406"
+                }
+              ]
+           },
+           {
+              "name" : "MATH2056",
+              "credits" : 3,
+              "status": "",
+              "term":"",
+              "pre" : [
+                {
+                  "name": "MATH1056"
+                }
+              ]
+           }
+        ],
+        third_year: [
           {
              "name" : "COSC3106",
              "credits" : 3,
@@ -178,7 +181,9 @@ var bcosc4 = {
                  "name": "COSC3406"
                }
              ]
-          },
+          }
+        ],
+        fourth_year: [
           //4th year
           {
              "name" : "COSC4106",
@@ -228,8 +233,25 @@ var bcosc4 = {
              "term":"",
              "fourth_year_course":[],
              "pre" : []
+          },
+          {
+             "name" : "COSC4xxx",
+             "credits" : 3,
+             "status": "",
+             "term":"",
+             "fourth_year_course":[],
+             "pre" : []
+          },
+          {
+             "name" : "COSC4xxx",
+             "credits" : 3,
+             "status": "",
+             "term":"",
+             "fourth_year_course":[],
+             "pre" : []
           }
-      ],
+        ]
+      },
       "humanities": {
         "number_of_credits":0,
         "courses": []
@@ -251,5 +273,8 @@ var bcosc4 = {
         "courses": []
       }
    }
+
+  //  db.users.updateOne({_id: "2a7mvwWABo8Nwh6WF"},{$set: {"department.0.core_courses.fourth_year.2.status":"pending"}})
+
 
 export {bcosc4};

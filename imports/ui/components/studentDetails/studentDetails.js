@@ -50,6 +50,20 @@ class StudentDetails {
         console.log(Meteor.users.find({_id: $stateParams.studentId}).fetch());
         return Meteor.users.find({_id: $stateParams.studentId}).fetch();
       },
+      fourth_year(){
+        Meteor.call("fourth_year_Courses", $stateParams.studentId ,function(err, results){
+          if(err) return err;
+          Session.set("fourth_year_Courses", results);
+        });
+        return Session.get("fourth_year_Courses");
+      },
+      cosc_electives(){
+        Meteor.call("cosc_electives", $stateParams.studentId ,function(err, results){
+          if(err) return err;
+          Session.set("cosc_electives", results);
+        });
+        return Session.get("cosc_electives");
+      }
     });
   }
 
