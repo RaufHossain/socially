@@ -24,6 +24,8 @@ class StudentDetails {
     this.subscribe('parties');
     this.subscribe('users');
 
+    this.first_year = [];
+    this.status_options = ["pending","passed"];
 
 
     this.helpers({
@@ -47,8 +49,15 @@ class StudentDetails {
         return Meteor.userId();
       },
       users() {
-        console.log(Meteor.users.find({_id: $stateParams.studentId}).fetch());
         return Meteor.users.find({_id: $stateParams.studentId}).fetch();
+      },
+      get_first_year(){
+        Meteor.call("get_first_year_Courses", $stateParams.studentId ,function(err, results){
+          if(err) return err;
+          Session.set("first_year_Courses", results);
+        });
+        this.first_year = Session.get("first_year_Courses");
+        return this.first_year;
       },
       fourth_year(){
         Meteor.call("fourth_year_Courses", $stateParams.studentId ,function(err, results){
@@ -65,6 +74,13 @@ class StudentDetails {
         return Session.get("cosc_electives");
       }
     });
+  }
+
+  save(){
+    console.log("working");
+  }
+  set_first_year(){
+    Meteor.call("set_first_year_Courses", this.first_year, this.studentId);
   }
 
 }

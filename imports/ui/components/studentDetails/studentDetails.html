@@ -4,88 +4,10 @@
 
 </div>
 <br></br>
-<table id="studentTable">
-  <h3>First Year credits:</h3>
-  <tr>
-    <th>Course Code</th>
-    <th>Number of Credits</th>
-    <th>Pre-requisites</th>
-    <th>Status</th>
-    <th>Term</th>
-  </tr>
-  <tr ng-repeat = "course in studentDetails.users[0].department[0].core_courses.first_year">
-    <td>{{course.name}}</td>
-    <td>{{course.credits}}</td>
-    <td>{{course.name}}</td>
-    <td>{{course.status}}</td>
-    <td>{{course.term}}</td>
-  </tr>
-</table>
 
-<br></br>
-
-<table id="studentTable">
-  <h3>Second Year credits:</h3>
-  <tr>
-    <th>Course Code</th>
-    <th>Number of Credits</th>
-    <th>Pre-requisites</th>
-    <th>Status</th>
-    <th>Term</th>
-  </tr>
-  <tr ng-repeat = "course in studentDetails.users[0].department[0].core_courses.second_year">
-    <td>{{course.name}}</td>
-    <td>{{course.credits}}</td>
-    <td>{{course.name}}</td>
-    <td>{{course.status}}</td>
-    <td>{{course.term}}</td>
-  </tr>
-</table>
-
-<br></br>
-
-<table id="studentTable">
-  <h3>Third Year credits:</h3>
-  <tr>
-    <th>Course Code</th>
-    <th>Number of Credits</th>
-    <th>Pre-requisites</th>
-    <th>Status</th>
-    <th>Term</th>
-  </tr>
-  <tr ng-repeat = "course in studentDetails.users[0].department[0].core_courses.third_year">
-    <td>{{course.name}}</td>
-    <td>{{course.credits}}</td>
-    <td>{{course.name}}</td>
-    <td>{{course.status}}</td>
-    <td>{{course.term}}</td>
-  </tr>
-</table>
-
-<br></br>
-
-<table id="studentTable">
-  <h3>Fourth Year credits:</h3>
-  <tr>
-    <th>Course Code</th>
-    <th>Number of Credits</th>
-    <th>Pre-requisites</th>
-    <th>Status</th>
-    <th>Term</th>
-  </tr>
-  <tr ng-repeat = "course in studentDetails.fourth_year">
-    <td>{{course.name}}</td>
-    <td>{{course.credits}}</td>
-    <td>{{course.name}}</td>
-    <td>{{course.status}}</td>
-    <td>{{course.term}}</td>
-  </tr>
-</table>
-<br></br>
-
-<div ng-show="studentDetails.cosc_electives">
-  <table id="studentTable" >
-    <h3>Cosc Electives:</h3>
+<form>
+  <table id="studentTable">
+    <h3>First Year credits:</h3>
     <tr>
       <th>Course Code</th>
       <th>Number of Credits</th>
@@ -93,7 +15,28 @@
       <th>Status</th>
       <th>Term</th>
     </tr>
-    <tr ng-repeat = "course in studentDetails.users[0].department[0].cosc_electives.courses">
+    <tr ng-repeat = "course in studentDetails.first_year">
+      <td>{{course.name}}</td>
+      <td>{{course.credits}}</td>
+      <td>{{course.name}}</td>
+      <td><select ng-model="studentDetails.first_year[$index].status" ng-options="status for status in studentDetails.status_options"></select></td>
+      <td><input type="text" ng-model="studentDetails.first_year[$index].term"></td>
+    </tr>
+  </table>
+  <input ng-click="studentDetails.set_first_year()" type="submit" value="Submit">
+
+  <br></br>
+
+  <table id="studentTable">
+    <h3>Second Year credits:</h3>
+    <tr>
+      <th>Course Code</th>
+      <th>Number of Credits</th>
+      <th>Pre-requisites</th>
+      <th>Status</th>
+      <th>Term</th>
+    </tr>
+    <tr ng-repeat = "course in studentDetails.users[0].department[0].core_courses.second_year">
       <td>{{course.name}}</td>
       <td>{{course.credits}}</td>
       <td>{{course.name}}</td>
@@ -101,8 +44,71 @@
       <td>{{course.term}}</td>
     </tr>
   </table>
-</div>
-<div ng-show="!studentDetails.cosc_electives">
-  <h2>No Computer Science Elective Completed</h3>
-</div>
-<br></br>
+
+  <br></br>
+
+  <table id="studentTable">
+    <h3>Third Year credits:</h3>
+    <tr>
+      <th>Course Code</th>
+      <th>Number of Credits</th>
+      <th>Pre-requisites</th>
+      <th>Status</th>
+      <th>Term</th>
+    </tr>
+    <tr ng-repeat = "course in studentDetails.users[0].department[0].core_courses.third_year">
+      <td>{{course.name}}</td>
+      <td>{{course.credits}}</td>
+      <td>{{course.name}}</td>
+      <td>{{course.status}}</td>
+      <td>{{course.term}}</td>
+    </tr>
+  </table>
+
+  <br></br>
+
+  <table id="studentTable">
+    <h3>Fourth Year credits:</h3>
+    <tr>
+      <th>Course Code</th>
+      <th>Number of Credits</th>
+      <th>Pre-requisites</th>
+      <th>Status</th>
+      <th>Term</th>
+    </tr>
+    <tr ng-repeat = "course in studentDetails.fourth_year">
+      <td>{{course.name}}</td>
+      <td>{{course.credits}}</td>
+      <td>{{course.name}}</td>
+      <td>{{course.status}}</td>
+      <td>{{course.term}}</td>
+    </tr>
+  </table>
+  <br></br>
+
+  <div ng-show="studentDetails.cosc_electives">
+    <table id="studentTable" >
+      <h3>Cosc Electives:</h3>
+      <tr>
+        <th>Course Code</th>
+        <th>Number of Credits</th>
+        <th>Pre-requisites</th>
+        <th>Status</th>
+        <th>Term</th>
+      </tr>
+      <tr ng-repeat = "course in studentDetails.users[0].department[0].cosc_electives.courses">
+        <td>{{course.name}}</td>
+        <td>{{course.credits}}</td>
+        <td>{{course.name}}</td>
+        <td>{{course.status}}</td>
+        <td>{{course.term}}</td>
+      </tr>
+    </table>
+  </div>
+  <div ng-show="!studentDetails.cosc_electives">
+    <h2>No Computer Science Elective Completed</h3>
+  </div>
+  <br></br>
+  <input ng-click="studentDetails.save()" type="submit" value="Submit">
+  <br></br>
+</form>

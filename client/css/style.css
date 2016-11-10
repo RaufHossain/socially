@@ -195,6 +195,12 @@ form input[type="radio"]{
 	position:relative;
 	top:1px;
 }
+
+form input[type="submit"]{
+	position:relative;
+	left:50%;
+}
+
 form div{
 	margin:0 0 0.8em 0;
 }
@@ -354,7 +360,7 @@ li a:hover {
     padding: 8px;
 }
 
-#studentTable tr:nth-child(even){background-color: #f2f2f2;}
+#studentTable tr{background-color: #f2f2f2;}
 
 #studentTable tr:hover {background-color: #ddd;}
 
@@ -364,4 +370,21 @@ li a:hover {
     text-align: left;
     background-color: #4CAF50;
     color: white;
+}
+
+#studentTable input{
+	background-color: #f2f2f2;
+	padding: 8px;
+	border: none;
+}
+
+
+
+
+#studentTable input:focus {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #ffffff;
+    color: black;
 }

@@ -115,6 +115,39 @@ Meteor.startup(() => {
       }
 
     },
+    get_first_year_Courses: function (id) {
+
+      var users = Meteor.users.find({_id:id}).fetch();
+
+      var array = users[0].department[0].core_courses.first_year;
+
+      return array;
+    },
+    set_first_year_Courses: function (array, id) {
+
+      var first_year = [];
+      var statusVariable = "";
+
+      for(i=0;i<array.length;i++){
+        first_year[i]={
+          name: array[i].name,
+          credits: array[i].credits,
+          pre: array[i].pre,
+          status: array[i].status,
+          term: array[i].term
+        }
+      }
+
+
+      Meteor.users.update({_id: Meteor.userId()},{
+        $set: {
+          "department.0.core_courses.first_year":first_year
+        }
+      },function(err, results){
+          if(err) console.log(err);
+
+      });
+    },
     fourth_year_Courses: function (id) {
 
       var users = Meteor.users.find({_id:id}).fetch();
