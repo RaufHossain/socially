@@ -25,6 +25,7 @@ class StudentDetails {
     this.subscribe('users');
 
     this.first_year = [];
+    this.second_year = [];
     this.status_options = ["pending","passed"];
 
 
@@ -59,6 +60,14 @@ class StudentDetails {
         this.first_year = Session.get("first_year_Courses");
         return this.first_year;
       },
+      get_second_year(){
+        Meteor.call("get_second_year_Courses", $stateParams.studentId ,function(err, results){
+          if(err) return err;
+          Session.set("second_year_Courses", results);
+        });
+        this.second_year = Session.get("second_year_Courses");
+        return this.second_year;
+      },
       fourth_year(){
         Meteor.call("fourth_year_Courses", $stateParams.studentId ,function(err, results){
           if(err) return err;
@@ -81,6 +90,10 @@ class StudentDetails {
   }
   set_first_year(){
     Meteor.call("set_first_year_Courses", this.first_year, this.studentId);
+  }
+  set_second_year(){
+    var all_required_course = this.first_year.concat(this.second_year);
+    Meteor.call("set_second_year_Courses", all_required_course, this.second_year, this.studentId);
   }
 
 }

@@ -36,14 +36,15 @@
       <th>Status</th>
       <th>Term</th>
     </tr>
-    <tr ng-repeat = "course in studentDetails.users[0].department[0].core_courses.second_year">
+    <tr ng-repeat = "course in studentDetails.second_year">
       <td>{{course.name}}</td>
       <td>{{course.credits}}</td>
       <td>{{course.name}}</td>
-      <td>{{course.status}}</td>
-      <td>{{course.term}}</td>
+      <td><select ng-model="studentDetails.second_year[$index].status" ng-options="status for status in studentDetails.status_options"></select></td>
+      <td><input type="text" ng-model="studentDetails.second_year[$index].term"></td>
     </tr>
   </table>
+  <input ng-click="studentDetails.set_second_year()" type="submit" value="Submit">
 
   <br></br>
 
