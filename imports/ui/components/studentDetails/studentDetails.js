@@ -89,7 +89,8 @@ class StudentDetails {
     console.log("working");
   }
   set_first_year(){
-    Meteor.call("set_first_year_Courses", this.first_year, this.studentId);
+    var all_required_course = this.first_year.concat(this.second_year);
+    Meteor.call("set_first_year_Courses", this.first_year, all_required_course, this.second_year, this.studentId);
   }
   set_second_year(){
     var all_required_course = this.first_year.concat(this.second_year);

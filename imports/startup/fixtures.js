@@ -24,6 +24,67 @@ Meteor.startup(() => {
     });
   }
 
+  function resetCourses(all_required_course, courses, id) {
+
+    var second_year = [];
+    var statusVariable = [];
+    var second_year_course_pre_requisites= [];
+    var pre_requisite_satisfied;
+
+
+    for(i=0;i<courses.length;i++){
+
+      second_year_course_pre_requisites = courses[i].pre;
+      statusVariable[i] = {};
+      pre_requisite_satisfied = true;
+
+      for(j=0; j<second_year_course_pre_requisites.length;j++){
+
+
+        for(k=0;k<all_required_course.length && pre_requisite_satisfied;k++){
+          if(second_year_course_pre_requisites[j].name === all_required_course[k].name){
+            statusVariable[i] = {
+              status: courses[i].status
+            };
+
+            if(all_required_course[k].status !== "passed"){
+              pre_requisite_satisfied = false;
+
+              statusVariable[i] = {
+                name: all_required_course[k].name,
+                status: ""
+              };
+              break;
+            }
+          }
+        }
+      }
+
+      console.log(statusVariable[i].status);
+      second_year[i]={
+        name: courses[i].name,
+        credits: courses[i].credits,
+        pre: courses[i].pre,
+        status: statusVariable[i].status,
+        term: courses[i].term
+      }
+    }
+    console.log(statusVariable);
+
+
+
+
+
+    Meteor.users.update({_id: Meteor.userId()},{
+      $set: {
+        "department.0.core_courses.second_year":second_year
+      }
+    },function(err, results){
+        if(err) console.log(err);
+
+    });
+  }
+
   Meteor.methods({
 
     register: function (credentials) {
@@ -123,7 +184,7 @@ Meteor.startup(() => {
 
       return array;
     },
-    set_first_year_Courses: function (array, id) {
+    set_first_year_Courses: function (array,all_required_course, second_year_courses, id) {
 
       var first_year = [];
 
@@ -146,6 +207,8 @@ Meteor.startup(() => {
           if(err) console.log(err);
 
       });
+
+      resetCourses(all_required_course, second_year_courses, id);
     },
     get_second_year_Courses: function (id) {
 
@@ -155,7 +218,7 @@ Meteor.startup(() => {
 
       return array;
     },
-    set_second_year_Courses: function (all_required_course, array, id) {
+    set_second_year_Courses: function (all_required_course, second_year_courses, id) {
 
       var second_year = [];
       var statusVariable = [];
@@ -163,9 +226,9 @@ Meteor.startup(() => {
       var pre_requisite_satisfied;
 
 
-      for(i=0;i<array.length;i++){
+      for(i=0;i<second_year_courses.length;i++){
 
-        second_year_course_pre_requisites = array[i].pre;
+        second_year_course_pre_requisites = second_year_courses[i].pre;
         statusVariable[i] = {};
         pre_requisite_satisfied = true;
 
@@ -175,7 +238,7 @@ Meteor.startup(() => {
           for(k=0;k<all_required_course.length && pre_requisite_satisfied;k++){
             if(second_year_course_pre_requisites[j].name === all_required_course[k].name){
               statusVariable[i] = {
-                status: array[i].status
+                status: second_year_courses[i].status
               };
 
               if(all_required_course[k].status !== "passed"){
@@ -193,11 +256,11 @@ Meteor.startup(() => {
 
         console.log(statusVariable[i].status);
         second_year[i]={
-          name: array[i].name,
-          credits: array[i].credits,
-          pre: array[i].pre,
+          name: second_year_courses[i].name,
+          credits: second_year_courses[i].credits,
+          pre: second_year_courses[i].pre,
           status: statusVariable[i].status,
-          term: array[i].term
+          term: second_year_courses[i].term
         }
       }
       console.log(statusVariable);
