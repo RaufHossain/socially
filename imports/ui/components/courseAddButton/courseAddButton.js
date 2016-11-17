@@ -12,13 +12,11 @@ class CourseAddButton {
 
     this.$mdDialog = $mdDialog;
     this.$mdMedia = $mdMedia;
-    this.users = Meteor.users.find().collection._docs._map;
   }
 
   open(event) {
 
-    console.log(this.course.description);
-      var course = this.course;
+      var id = this.id;
       this.$mdDialog.show({
         controller($mdDialog) {
           'ngInject';
@@ -27,7 +25,7 @@ class CourseAddButton {
           this.close = () => {
             $mdDialog.hide();
           }
-          this.course = course;
+          this.id = id;
 
         },
         controllerAs: 'courseAddModal',
@@ -49,7 +47,7 @@ export default angular.module(name, [
 ]).component(name, {
   template: buttonTemplate,
   bindings: {
-    course: '<'
+    id: '<'
   },
   controllerAs: name,
   controller: CourseAddButton

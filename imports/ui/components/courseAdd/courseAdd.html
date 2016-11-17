@@ -1,33 +1,44 @@
 <div layout="column" layout-padding>
-  <div layout="column" layout-gt-sm="row"  layout-padding>
-    <div layout="column" layout-padding>
+  <md-input-container>
+    <label>
+      Course Name:
+    </label>
+    <input type="text" ng-model="courseAdd.course.name" required/>
+  </md-input-container>
+  <md-input-container>
+    <label>
+      Description:
+    </label>
+    <input type="text" ng-model="courseAdd.course.description" required/>
+  </md-input-container>
+  <md-input-container>
+    <label>
+      Number Of Credits:
+    </label>
+    <input type="number" ng-model="courseAdd.course.credits" required/>
+  </md-input-container>
+  <md-input-container>
+    <label>
+      Status:
+    </label>
+    <br></br>
+    <select ng-model="courseAdd.course.status" ng-options="status for status in courseAdd.status_options"></select>
+  </md-input-container>
+  <md-input-container ng-show = "courseAdd.course.name.charAt(0) != 'C'">
+    <label>
+      Option:
+    </label>
+    <br></br>
+    <select ng-model="courseAdd.course.category" ng-options="category for category in courseAdd.category_options"></select>
+  </md-input-container>
+  <div flex></div>
+  <div flex>
+    <md-button ng-click="courseAdd.addCourse()" class="md-raised">Add Course!</md-button>
+  </div>
+</div>
 
-      <md-input-container>
-        <label>
-          Course Name:
-        </label>
-        <h1>{{courseAdd.course.name}}</h1>
-      </md-input-container>
-      <md-input-container>
-        <label>
-          Description:
-        </label>
-        <h2>{{courseAdd.course.description}}</h2>
-      </md-input-container>
-      <md-input-container>
-        <label>
-          Number Of Credits:
-        </label>
-        <h2>{{courseAdd.course.credits}}</h2>
-      </md-input-container>
-      <md-input-container>
-        <label>
-          Name Of Student:
-        </label>
-        <h2>{{courseAdd.course.studentName}}</h2>
-      </md-input-container>
-      <md-button ng-click="courseAdd.addCourse()" class="md-primary md-raised">Save</md-button>
-
-    </div>
+<div ng-show="!courseAdd.isStudent" layout="column" layout-padding>
+  <div flex>
+    <md-button ng-click="courseAdd.submit()" class="md-raised">Add Course!</md-button>
   </div>
 </div>

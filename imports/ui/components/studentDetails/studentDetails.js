@@ -26,6 +26,12 @@ class StudentDetails {
 
     this.first_year = [];
     this.second_year = [];
+    this.third_year = [];
+    this.fourth_year = [];
+    this.cosc_electives= [];
+    this.humanities= [];
+    this.social_sciences = [];
+    this.professional= [];
     this.status_options = ["pending","passed"];
 
 
@@ -68,19 +74,82 @@ class StudentDetails {
         this.second_year = Session.get("second_year_Courses");
         return this.second_year;
       },
-      fourth_year(){
-        Meteor.call("fourth_year_Courses", $stateParams.studentId ,function(err, results){
+      get_third_year(){
+        Meteor.call("get_third_year_Courses", $stateParams.studentId ,function(err, results){
+          if(err) return err;
+
+          Session.set("third_year_Courses", results);
+        });
+        this.third_year = Session.get("third_year_Courses");
+        return this.third_year;
+      },
+      get_fourth_year(){
+        Meteor.call("get_fourth_year_Courses", $stateParams.studentId ,function(err, results){
           if(err) return err;
           Session.set("fourth_year_Courses", results);
         });
-        return Session.get("fourth_year_Courses");
+        this.fourth_year = Session.get("fourth_year_Courses");
+        return this.fourth_year;
       },
-      cosc_electives(){
-        Meteor.call("cosc_electives", $stateParams.studentId ,function(err, results){
+      cosc_electives_empty(){
+        Meteor.call("cosc_electives_empty", $stateParams.studentId ,function(err, results){
           if(err) return err;
-          Session.set("cosc_electives", results);
+          Session.set("cosc_electives_empty", results);
         });
-        return Session.get("cosc_electives");
+        return Session.get("cosc_electives_empty");
+      },
+      get_cosc_electives_courses(){
+        Meteor.call("get_cosc_electives_courses", $stateParams.studentId ,function(err, results){
+          if(err) return err;
+          Session.set("cosc_electives_courses", results);
+        });
+        this.cosc_electives = Session.get("cosc_electives_courses");
+        return this.cosc_electives;
+      },
+      humanities_empty(){
+        Meteor.call("humanities_empty", $stateParams.studentId ,function(err, results){
+          if(err) return err;
+          Session.set("humanities_empty", results);
+        });
+        return Session.get("humanities_empty");
+      },
+      get_humanities_courses(){
+        Meteor.call("get_humanities_courses", $stateParams.studentId ,function(err, results){
+          if(err) return err;
+          Session.set("get_humanities_courses", results);
+        });
+        this.humanities = Session.get("get_humanities_courses");
+        return this.humanities;
+      },
+      social_sciences_empty(){
+        Meteor.call("social_sciences_empty", $stateParams.studentId ,function(err, results){
+          if(err) return err;
+          Session.set("social_sciences_empty", results);
+        });
+        return Session.get("social_sciences_empty");
+      },
+      get_social_sciences_courses(){
+        Meteor.call("get_social_sciences_courses", $stateParams.studentId ,function(err, results){
+          if(err) return err;
+          Session.set("get_social_sciences_courses", results);
+        });
+        this.social_sciences = Session.get("get_social_sciences_courses");
+        return this.social_sciences;
+      },
+      professional_empty(){
+        Meteor.call("professional_empty", $stateParams.studentId ,function(err, results){
+          if(err) return err;
+          Session.set("professional_empty", results);
+        });
+        return Session.get("professional_empty");
+      },
+      get_professional_courses(){
+        Meteor.call("get_professional_courses", $stateParams.studentId ,function(err, results){
+          if(err) return err;
+          Session.set("get_professional_courses", results);
+        });
+        this.professional = Session.get("get_professional_courses");
+        return this.professional;
       }
     });
   }
@@ -89,13 +158,24 @@ class StudentDetails {
     console.log("working");
   }
   set_first_year(){
-    var all_required_course = this.first_year.concat(this.second_year);
-    Meteor.call("set_first_year_Courses", this.first_year, all_required_course, this.second_year, this.studentId);
+    Meteor.call("set_first_year_Courses", this.first_year, this.second_year, this.studentId);
   }
   set_second_year(){
-    var all_required_course = this.first_year.concat(this.second_year);
-    Meteor.call("set_second_year_Courses", all_required_course, this.second_year, this.studentId);
+
+    Meteor.call("set_second_year_Courses", this.first_year, this.second_year, this.third_year, this.studentId);
   }
+  set_third_year(){
+
+    Meteor.call("set_third_year_Courses", this.first_year, this.second_year, this.third_year, this.fourth_year,this.studentId);
+  }
+  set_fourth_year(){
+    var all_required_course = this.first_year.concat(this.second_year);
+    all_required_course = all_required_course.concat(this.third_year);
+    all_required_course = all_required_course.concat(this.fourth_year);
+    Meteor.call("set_fourth_year_Courses", all_required_course, this.cosc_electives, this.fourth_year, this.studentId);
+  }
+
+
 
 }
 

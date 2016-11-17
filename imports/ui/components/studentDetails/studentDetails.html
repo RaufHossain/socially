@@ -15,7 +15,7 @@
       <th>Status</th>
       <th>Term</th>
     </tr>
-    <tr ng-repeat = "course in studentDetails.first_year">
+    <tr ng-repeat = "course in studentDetails.get_first_year">
       <td>{{course.name}}</td>
       <td>{{course.credits}}</td>
       <td>{{course.name}}</td>
@@ -36,7 +36,7 @@
       <th>Status</th>
       <th>Term</th>
     </tr>
-    <tr ng-repeat = "course in studentDetails.second_year">
+    <tr ng-repeat = "course in studentDetails.get_second_year">
       <td>{{course.name}}</td>
       <td>{{course.credits}}</td>
       <td>{{course.name}}</td>
@@ -57,14 +57,15 @@
       <th>Status</th>
       <th>Term</th>
     </tr>
-    <tr ng-repeat = "course in studentDetails.users[0].department[0].core_courses.third_year">
+    <tr ng-repeat = "course in studentDetails.get_third_year">
       <td>{{course.name}}</td>
       <td>{{course.credits}}</td>
       <td>{{course.name}}</td>
-      <td>{{course.status}}</td>
-      <td>{{course.term}}</td>
+      <td><select ng-model="studentDetails.third_year[$index].status" ng-options="status for status in studentDetails.status_options"></select></td>
+      <td><input type="text" ng-model="studentDetails.third_year[$index].term"></td>
     </tr>
   </table>
+  <input ng-click="studentDetails.set_third_year()" type="submit" value="Submit">
 
   <br></br>
 
@@ -77,17 +78,18 @@
       <th>Status</th>
       <th>Term</th>
     </tr>
-    <tr ng-repeat = "course in studentDetails.fourth_year">
+    <tr ng-repeat = "course in studentDetails.get_fourth_year">
       <td>{{course.name}}</td>
       <td>{{course.credits}}</td>
       <td>{{course.name}}</td>
-      <td>{{course.status}}</td>
-      <td>{{course.term}}</td>
+      <td><select ng-model="studentDetails.fourth_year[$index].status" ng-options="status for status in studentDetails.status_options"></select></td>
+      <td><input type="text" ng-model="studentDetails.fourth_year[$index].term"></td>
     </tr>
   </table>
+  <input ng-click="studentDetails.set_fourth_year()" type="submit" value="Submit">
   <br></br>
 
-  <div ng-show="studentDetails.cosc_electives">
+  <div ng-show="!studentDetails.cosc_electives_empty">
     <table id="studentTable" >
       <h3>Cosc Electives:</h3>
       <tr>
@@ -97,18 +99,105 @@
         <th>Status</th>
         <th>Term</th>
       </tr>
-      <tr ng-repeat = "course in studentDetails.users[0].department[0].cosc_electives.courses">
+      <tr ng-repeat = "course in studentDetails.get_cosc_electives_courses">
         <td>{{course.name}}</td>
         <td>{{course.credits}}</td>
         <td>{{course.name}}</td>
-        <td>{{course.status}}</td>
-        <td>{{course.term}}</td>
+        <td><select ng-model="studentDetails.cosc_electives[$index].status" ng-options="status for status in studentDetails.status_options"></select></td>
+        <td><input type="text" ng-model="studentDetails.cosc_electives[$index].term"></td>
       </tr>
     </table>
+    <input ng-click="studentDetails.set_fourth_year()" type="submit" value="Submit">
+    <course-add-button id="studentDetails.studentId"></course-add-button>
   </div>
-  <div ng-show="!studentDetails.cosc_electives">
+
+  <div ng-show="studentDetails.cosc_electives_empty">
     <h2>No Computer Science Elective Completed</h3>
+    <course-add-button id="studentDetails.studentId"></course-add-button>
   </div>
+  <br></br>
+
+  <div ng-show="!studentDetails.humanities_empty">
+    <table id="studentTable" >
+      <h3>Humanities Courses:</h3>
+      <tr>
+        <th>Course Code</th>
+        <th>Number of Credits</th>
+        <th>Pre-requisites</th>
+        <th>Status</th>
+        <th>Term</th>
+      </tr>
+      <tr ng-repeat = "course in studentDetails.get_humanities_courses">
+        <td>{{course.name}}</td>
+        <td>{{course.credits}}</td>
+        <td>{{course.name}}</td>
+        <td><select ng-model="studentDetails.humanities[$index].status" ng-options="status for status in studentDetails.status_options"></select></td>
+        <td><input type="text" ng-model="studentDetails.humanities[$index].term"></td>
+      </tr>
+    </table>
+    <input ng-click="studentDetails.set_fourth_year()" type="submit" value="Submit">
+    <course-add-button id="studentDetails.studentId"></course-add-button>
+  </div>
+
+  <div ng-show="studentDetails.humanities_empty">
+    <h2>No Humanities Courses Completed</h3>
+    <course-add-button id="studentDetails.studentId"></course-add-button>
+  </div>
+
+  <div ng-show="!studentDetails.social_sciences_empty">
+    <table id="studentTable" >
+      <h3>Social Science Courses:</h3>
+      <tr>
+        <th>Course Code</th>
+        <th>Number of Credits</th>
+        <th>Pre-requisites</th>
+        <th>Status</th>
+        <th>Term</th>
+      </tr>
+      <tr ng-repeat = "course in studentDetails.get_social_sciences_courses">
+        <td>{{course.name}}</td>
+        <td>{{course.credits}}</td>
+        <td>{{course.name}}</td>
+        <td><select ng-model="studentDetails.social_sciences[$index].status" ng-options="status for status in studentDetails.status_options"></select></td>
+        <td><input type="text" ng-model="studentDetails.social_sciences[$index].term"></td>
+      </tr>
+    </table>
+    <input ng-click="studentDetails.set_fourth_year()" type="submit" value="Submit">
+    <course-add-button id="studentDetails.studentId"></course-add-button>
+  </div>
+
+  <div ng-show="studentDetails.social_sciences_empty">
+    <h2>No Social Science Courses Completed</h3>
+    <course-add-button id="studentDetails.studentId"></course-add-button>
+  </div>
+
+  <div ng-show="!studentDetails.professional_empty">
+    <table id="studentTable" >
+      <h3>Professional Courses:</h3>
+      <tr>
+        <th>Course Code</th>
+        <th>Number of Credits</th>
+        <th>Pre-requisites</th>
+        <th>Status</th>
+        <th>Term</th>
+      </tr>
+      <tr ng-repeat = "course in studentDetails.get_professional_courses">
+        <td>{{course.name}}</td>
+        <td>{{course.credits}}</td>
+        <td>{{course.name}}</td>
+        <td><select ng-model="studentDetails.professional[$index].status" ng-options="status for status in studentDetails.status_options"></select></td>
+        <td><input type="text" ng-model="studentDetails.professional[$index].term"></td>
+      </tr>
+    </table>
+    <input ng-click="studentDetails.set_fourth_year()" type="submit" value="Submit">
+    <course-add-button id="studentDetails.studentId"></course-add-button>
+  </div>
+
+  <div ng-show="studentDetails.professional_empty">
+    <h2>No Professional Courses Completed</h3>
+    <course-add-button id="studentDetails.studentId"></course-add-button>
+  </div>
+
   <br></br>
   <input ng-click="studentDetails.save()" type="submit" value="Submit">
   <br></br>

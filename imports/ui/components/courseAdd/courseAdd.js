@@ -12,6 +12,14 @@ class CourseAdd {
     'ngInject';
 
     $reactive(this).attach($scope);
+    this.status_options = ["pending","passed"];
+    this.category_options = ["Humanities","Social Sciences", "Professional"];
+    this.course = {
+      category:"",
+      status:"pending",
+      term:"",
+      pre:[]
+    };
     this.helpers({
 
       isStudent() {
@@ -31,16 +39,24 @@ class CourseAdd {
 
   addCourse() {
 
-    var course ={
-      courseId: this.course.courseId,
-      credits: this.course.credits,
-      description: this.course.description,
-      name: this.course.name,
-      ownerID: this.course.ownerID,
-    }
+    console.log(this.id);
     //Un-hint it
-    Meteor.call('update', course, this.course.studentID);
-    Meteor.call('emailInvite', course, this.course.studentID);
+    if(this.course.category === "Humanities"){
+      Meteor.call('update_humanities', this.course, this.id);
+    }else{
+      if(this.course.category === "Social Sciences"){
+        Meteor.call('update_social', this.course, this.id);
+      }else{
+        if(this.course.category === "Professional"){
+          Meteor.call('update_professional', this.course, this.id);
+        }else{
+          Meteor.call('update_cosc_electives', this.course, this.id);
+        }
+      }
+    }
+    // Meteor.call('update', this.course, this.id);
+    // Meteor.call('emailInvite', course, this.course.studentID);
+    console.log(this.course);
 
     if(this.done) {
      this.done();
@@ -59,7 +75,7 @@ export default angular.module(name, [
 ]).component(name, {
   template,
   bindings: {
-    course: '<',
+    id: '<',
     done: '&?'
   },
   controllerAs: name,

@@ -225,30 +225,6 @@ var bcosc4 = {
              "term":"",
              "fourth_year_course":[],
              "pre" : []
-          },
-          {
-             "name" : "COSC4xxx",
-             "credits" : 3,
-             "status": "",
-             "term":"",
-             "fourth_year_course":[],
-             "pre" : []
-          },
-          {
-             "name" : "COSC4xxx",
-             "credits" : 3,
-             "status": "",
-             "term":"",
-             "fourth_year_course":[],
-             "pre" : []
-          },
-          {
-             "name" : "COSC4xxx",
-             "credits" : 3,
-             "status": "",
-             "term":"",
-             "fourth_year_course":[],
-             "pre" : []
           }
         ]
       },
