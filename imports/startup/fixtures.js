@@ -2,7 +2,8 @@ import { Meteor } from 'meteor/meteor';
 import { Parties } from '../api/parties/index';
 import { Accounts } from 'meteor/accounts-base';
 import { Roles } from 'meteor/alanning:roles';
-import { Session } from 'meteor/session'
+import { Session } from 'meteor/session';
+
 
 import {bcosc4} from "./database"
 
@@ -23,6 +24,7 @@ Meteor.startup(() => {
       Parties.insert(party)
     });
   }
+
 
   function resetCourses(remaining_courses, courses, id) {
 
@@ -119,6 +121,118 @@ Meteor.startup(() => {
     }
 
   }
+  function addElectives(course, id){
+
+    var users = Meteor.users.find({_id:id}).fetch();
+    var credits = users[0].department[0].electives.number_of_credits;
+
+    if(credits <36){
+      Meteor.users.update({_id: id},{
+        $push: {
+          "department.0.electives.courses": course
+        },
+        $inc: {
+          "department.0.electives.number_of_credits": course.credits
+        }
+      },function(err, results){
+          if(err) console.log(err);
+
+      });
+    }else{
+      console.log("max number of credits reached: "+ credits)
+    }
+
+
+  }
+
+  function update_humanities(course, id) {
+
+    Meteor.users.update({_id: id},{
+      $push: {
+        "department.0.humanities.courses": course
+      },
+      $inc:{
+        "department.0.humanities.number_of_credits": course.credits
+      }
+    },function(err, results){
+        if(err) console.log(err);
+
+    });
+
+  }
+
+  function update_social(course, id) {
+
+    Meteor.users.update({_id: id},{
+      $push: {
+        "department.0.social_sciences.courses": course
+      },
+      $inc:{
+        "department.0.social_sciences.number_of_credits": course.credits
+      }
+    },function(err, results){
+        if(err) console.log(err);
+
+    });
+
+  }
+  function update_professional(course, id) {
+
+    Meteor.users.update({_id: id},{
+      $push: {
+        "department.0.professional.courses": course
+      },
+      $inc:{
+        "department.0.professional.number_of_credits": course.credits
+      }
+    },function(err, results){
+        if(err) console.log(err);
+
+    });
+
+  }
+
+  function removeCourse(name, id){
+
+    var array = [];
+    if(name === "humanities"){
+      Meteor.users.update({_id: id},{
+        $set: {
+          "department.0.humanities.courses":array
+        }
+      },function(err, results){
+          if(err) console.log(err);
+
+
+      });
+
+    }else{
+      if(name === "social_sciences"){
+        Meteor.users.update({_id: id},{
+          $set: {
+            "department.0.social_sciences.courses":array
+          }
+        },function(err, results){
+            if(err) console.log(err);
+
+
+        });
+      }else{
+        if(name === "professional"){
+          Meteor.users.update({_id: id},{
+            $set: {
+              "department.0.professional.courses":array
+            }
+          },function(err, results){
+              if(err) console.log(err);
+
+
+          });
+        }
+      }
+    }
+  }
+
 
   function removeCoscElectives(course, id) {
     console.log(course);
@@ -441,7 +555,7 @@ Meteor.startup(() => {
 
       var array = users[0].department[0].cosc_electives.courses;
 
-      if (typeof array == 'undefined' && array.length == 0) {
+      if (typeof array == 'undefined' || array.length == 0) {
         return true;
       }
       else{return false;}
@@ -455,51 +569,92 @@ Meteor.startup(() => {
     },
     update_cosc_electives: function (course, id) {
 
-      Meteor.users.update({_id: id},{
-        $push: {
-          "department.0.cosc_electives.courses": course
-        }
-      },function(err, results){
-          if(err) console.log(err);
+      var users = Meteor.users.find({_id:id}).fetch();
+      var credits = users[0].department[0].cosc_electives.number_of_credits;
+      if(credits<15){
 
-      });
+        Meteor.users.update({_id: id},{
+          $push: {
+            "department.0.cosc_electives.courses": course
+          },
+          $inc: {
+            "department.0.cosc_electives.number_of_credits": course.credits
+          }
+        },function(err, results){
+            if(err) console.log(err);
 
-    },
-    update_humanities: function (course, id) {
+        });
 
-      Meteor.users.update({_id: id},{
-        $push: {
-          "department.0.humanities.courses": course
-        }
-      },function(err, results){
-          if(err) console.log(err);
+      }else{
+        addElectives(course,id);
+      }
 
-      });
 
-    },
-    update_social: function (course, id) {
-
-      Meteor.users.update({_id: id},{
-        $push: {
-          "department.0.social_sciences.courses": course
-        }
-      },function(err, results){
-          if(err) console.log(err);
-
-      });
 
     },
-    update_professional: function (course, id) {
+    update_hum_social_prof: function (course, id) {
+      var users = Meteor.users.find({_id:id}).fetch();
+      var hum_credits = users[0].department[0].humanities.number_of_credits;
+      var social_credits = users[0].department[0].social_sciences.number_of_credits;
+      var proff_credits = users[0].department[0].professional.number_of_credits;
 
-      Meteor.users.update({_id: id},{
-        $push: {
-          "department.0.professional.courses": course
+      if((hum_credits+social_credits)<12 && (hum_credits+proff_credits)<12 && (social_credits+proff_credits)<12){
+
+        if(course.category === "Humanities"){
+          if(hum_credits < 6){
+            update_humanities(course,id);
+          }else{
+            addElectives(course,id);
+          }
+
+        }else{
+          if(course.category === "Social Sciences"){
+            if(social_credits < 6){
+              update_social(course,id);
+            }else{
+              addElectives(course,id);
+            }
+
+          }else{
+            if(course.category === "Professional"){
+              if(proff_credits < 6){
+                update_professional(course,id);
+              }else{
+                addElectives(course,id);
+              }
+
+            }else{
+              addElectives(course,id);
+            }
+          }
         }
-      },function(err, results){
-          if(err) console.log(err);
+      }else{
+        addElectives(course,id);
+        var _course_;
 
-      });
+        if(hum_credits === 3){
+          _course_ = users[0].department[0].humanities.courses[0];
+          removeCourse("humanities", id);
+          addElectives(_course_,id)
+        }else{
+          if(social_credits === 3){
+            _course_ = users[0].department[0].social_sciences.courses[0];
+            removeCourse("social_sciences", id);
+            addElectives(_course_,id)
+          }else{
+            if(proff_credits === 3){
+              _course_ = users[0].department[0].professional.courses[0];
+              removeCourse("professional", id);
+              addElectives(_course_,id)
+            }
+          }
+        }
+      }
 
+    },
+    update_electives: function (course, id) {
+
+    addElectives(course,id);
     },
     humanities_empty: function (id) {
       var users = Meteor.users.find({_id:id}).fetch();
@@ -549,6 +704,23 @@ Meteor.startup(() => {
       var users = Meteor.users.find({_id:id}).fetch();
 
       var array = users[0].department[0].professional.courses;
+
+      return array;
+    },
+    electives_empty: function (id) {
+      var users = Meteor.users.find({_id:id}).fetch();
+
+      var array = users[0].department[0].electives.courses;
+
+      if (typeof array == 'undefined' || array.length == 0) {
+        return true;
+      }
+      else{return false;}
+    },
+    get_electives_courses: function (id) {
+      var users = Meteor.users.find({_id:id}).fetch();
+
+      var array = users[0].department[0].electives.courses;
 
       return array;
     },

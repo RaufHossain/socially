@@ -7,6 +7,10 @@ import { Meteor } from 'meteor/meteor';
 
 import template from './studentDetails.html';
 
+
+
+
+
 import { name as CourseAddButton } from '../courseAddButton/courseAddButton';
 import { name as CourseAdd } from '../courseAdd/courseAdd';
 import { Parties } from '../../../api/parties/index';
@@ -32,7 +36,9 @@ class StudentDetails {
     this.humanities= [];
     this.social_sciences = [];
     this.professional= [];
+    this.electives= [];
     this.status_options = ["pending","passed"];
+    this.term
 
 
     this.helpers({
@@ -101,9 +107,9 @@ class StudentDetails {
       get_cosc_electives_courses(){
         Meteor.call("get_cosc_electives_courses", $stateParams.studentId ,function(err, results){
           if(err) return err;
-          Session.set("cosc_electives_courses", results);
+          Session.set("get_cosc_electives_courses", results);
         });
-        this.cosc_electives = Session.get("cosc_electives_courses");
+        this.cosc_electives = Session.get("get_cosc_electives_courses");
         return this.cosc_electives;
       },
       humanities_empty(){
@@ -150,12 +156,113 @@ class StudentDetails {
         });
         this.professional = Session.get("get_professional_courses");
         return this.professional;
+      },
+      electives_empty(){
+        Meteor.call("electives_empty", $stateParams.studentId ,function(err, results){
+          if(err) return err;
+          Session.set("electives_empty", results);
+        });
+        return Session.get("electives_empty");
+      },
+      get_electives_courses(){
+        Meteor.call("get_electives_courses", $stateParams.studentId ,function(err, results){
+          if(err) return err;
+          Session.set("get_electives_courses", results);
+        });
+        this.electives = Session.get("get_electives_courses");
+        return this.electives;
       }
     });
   }
 
   save(){
-    console.log("working");
+    // Define the pdf-document
+    var array = [];
+    var term = this.term;
+    this.term = '';
+
+    for(i = 0; i<this.first_year.length; i++){
+     if(this.first_year[i].term === term){
+       array.push(this.first_year[i].name);
+     }
+    }
+    for(i = 0; i<this.second_year.length; i++){
+     if(this.second_year[i].term === term){
+       array.push(this.second_year[i].name);
+     }
+    }
+    for(i = 0; i<this.third_year.length; i++){
+     if(this.third_year[i].term === term){
+       array.push(this.third_year[i].name);
+     }
+    }
+    for(i = 0; i<this.fourth_year.length; i++){
+     if(this.fourth_year[i].term === term){
+       array.push(this.fourth_year[i].name);
+     }
+    }
+    for(i = 0; i<this.cosc_electives.length; i++){
+     if(this.cosc_electives[i].term === term){
+       array.push(this.cosc_electives[i].name);
+     }
+    }
+    for(i = 0; i<this.humanities.length; i++){
+     if(this.humanities[i].term === term){
+       array.push(this.humanities[i].name);
+     }
+    }
+    for(i = 0; i<this.social_sciences.length; i++){
+     if(this.social_sciences[i].term === term){
+       array.push(this.social_sciences[i].name);
+     }
+    }
+    for(i = 0; i<this.professional.length; i++){
+     if(this.professional[i].term === term){
+       array.push(this.professional[i].name);
+     }
+    }
+    for(i = 0; i<this.electives.length; i++){
+     if(this.electives[i].term === term){
+       array.push(this.electives[i].name);
+     }
+    }
+
+    for(i = 0; i<5; i++){
+      if(typeof array[i] === 'undefined'){
+        array[i] = '';
+      }
+    }
+
+
+    var docDefinition = {
+    	content: [
+        { text: 'Tables', style: 'header' },
+				'Official documentation is in progress, this document is just a glimpse of what is possible with pdfmake and its layout engine.',
+				{ text: 'A simple table (no headers, no width specified, no spans, no styling)', style: 'subheader' },
+				'The following table has nothing more than a body array',
+				{
+						style: 'tableExample',
+						table: {
+								body: [
+										['SPRING/SUMMER', 'FALL', 'WINTER'],
+										[array[0], 'Another one here', 'OK?'],
+                    [array[1], 'Another one here', 'OK?'],
+                    [array[2], 'Another one here', 'OK?'],
+                    [array[3], 'Another one here', 'OK?'],
+                    [array[4], 'Another one here', 'OK?']
+								]
+						}
+				}
+      ]
+    }
+
+    // Start the pdf-generation process
+    pdfMake.createPdf(docDefinition).getBuffer(function(result) {
+      fs.writeFile('sample.pdf', result, function (err) {
+      if (err) throw err;
+      gui.Shell.openItem(afile);
+      });
+    });
   }
   set_first_year(){
     Meteor.call("set_first_year_Courses", this.first_year, this.second_year, this.studentId);
@@ -174,12 +281,22 @@ class StudentDetails {
     all_required_course = all_required_course.concat(this.fourth_year);
     Meteor.call("set_fourth_year_Courses", all_required_course, this.cosc_electives, this.fourth_year, this.studentId);
   }
+  createPdf(credentials){
+    Meteor.call("createPdf", "Rauf");
+
+  }
+
+
+
 
 
 
 }
 
+
+
 const name = 'studentDetails';
+
 
 // create a module
 export default angular.module(name, [

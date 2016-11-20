@@ -199,6 +199,43 @@
   </div>
 
   <br></br>
-  <input ng-click="studentDetails.save()" type="submit" value="Submit">
+
+  <div ng-show="!studentDetails.electives_empty">
+    <table id="studentTable" >
+      <h3>Elective Courses:</h3>
+      <tr>
+        <th>Course Code</th>
+        <th>Number of Credits</th>
+        <th>Pre-requisites</th>
+        <th>Status</th>
+        <th>Term</th>
+      </tr>
+      <tr ng-repeat = "course in studentDetails.get_electives_courses">
+        <td>{{course.name}}</td>
+        <td>{{course.credits}}</td>
+        <td>{{course.name}}</td>
+        <td><select ng-model="studentDetails.electives[$index].status" ng-options="status for status in studentDetails.status_options"></select></td>
+        <td><input type="text" ng-model="studentDetails.electives[$index].term"></td>
+      </tr>
+    </table>
+    <input ng-click="studentDetails.set_fourth_year()" type="submit" value="Submit">
+    <course-add-button id="studentDetails.studentId"></course-add-button>
+  </div>
+
+  <div ng-show="studentDetails.electives_empty">
+    <h2>No Elective Courses Completed</h3>
+    <course-add-button id="studentDetails.studentId"></course-add-button>
+  </div>
+
+  <br></br>
+  <md-input-container>
+    <label>
+      Term:
+    </label>
+    <input type="text" ng-model="studentDetails.term" required/>
+    <button ng-click="studentDetails.save()" type="submit">Print PDF</button>
+  </md-input-container>
+  <br></br>
+
   <br></br>
 </form>

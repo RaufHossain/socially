@@ -13,7 +13,7 @@ class CourseAdd {
 
     $reactive(this).attach($scope);
     this.status_options = ["pending","passed"];
-    this.category_options = ["Humanities","Social Sciences", "Professional"];
+    this.category_options = ["Humanities","Social Sciences", "Professional", "Electives"];
     this.course = {
       category:"",
       status:"pending",
@@ -41,18 +41,10 @@ class CourseAdd {
 
     console.log(this.id);
     //Un-hint it
-    if(this.course.category === "Humanities"){
-      Meteor.call('update_humanities', this.course, this.id);
+    if(this.course.category !== ""){
+      Meteor.call('update_hum_social_prof', this.course, this.id);
     }else{
-      if(this.course.category === "Social Sciences"){
-        Meteor.call('update_social', this.course, this.id);
-      }else{
-        if(this.course.category === "Professional"){
-          Meteor.call('update_professional', this.course, this.id);
-        }else{
-          Meteor.call('update_cosc_electives', this.course, this.id);
-        }
-      }
+      Meteor.call('update_cosc_electives', this.course, this.id);
     }
     // Meteor.call('update', this.course, this.id);
     // Meteor.call('emailInvite', course, this.course.studentID);

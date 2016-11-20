@@ -24,7 +24,7 @@
     <br></br>
     <select ng-model="courseAdd.course.status" ng-options="status for status in courseAdd.status_options"></select>
   </md-input-container>
-  <md-input-container ng-show = "courseAdd.course.name.charAt(0) != 'C'">
+  <md-input-container ng-show = "courseAdd.course.name.charAt(0) != 'C' || courseAdd.course.name.charAt(0) != 'c'">
     <label>
       Option:
     </label>
